@@ -25,16 +25,16 @@ ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
 
 h1, h2, h3, .serif {
   font-family: var(--font-serif);
-  font-weight: 500;
+  font-weight: 400;
   line-height: var(--lh-tight);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.012em;
   text-wrap: balance;
 }
 h2 { font-size: var(--fs-h2); }
 h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); }
 p { text-wrap: pretty; }
 
-.script { font-family: var(--font-script); font-weight: 400; color: var(--orange-burnt); letter-spacing: 0; line-height: 1; }
+.script { font-family: var(--font-script); font-style: italic; font-weight: 400; color: var(--orange-burnt); letter-spacing: -.01em; }
 .on-dark .script { color: var(--orange); }  /* laranja vivo só sobre fundo escuro; no claro, laranja queimado (contraste ≥ 3:1 em texto grande) */
 .eyebrow {
   display: inline-flex; align-items: center; gap: .75em;
@@ -68,9 +68,8 @@ p { text-wrap: pretty; }
 .kraft { position: relative; isolation: isolate; }
 .kraft::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background-image: var(--kraft); background-size: 240px; opacity: .5; mix-blend-mode: multiply;
+  background-image: var(--grain-img); background-size: var(--grain-size, 192px); opacity: var(--grain, .3); border-radius: inherit;
 }
-.on-dark.kraft::before { mix-blend-mode: soft-light; opacity: .35; }
 
 /* Acessibilidade */
 .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -97,8 +96,7 @@ p { text-wrap: pretty; }
 .placeholder-note {
   position: absolute; left: 12px; bottom: 12px; z-index: 3;
   font: 600 11px/1.2 var(--font-sans); letter-spacing: .06em; text-transform: uppercase;
-  padding: 6px 9px; border-radius: 8px; background: rgba(36, 20, 15, .72); color: var(--gold-light);
-  backdrop-filter: blur(4px); max-width: calc(100% - 24px);
+  padding: 6px 9px; border-radius: 8px; background: rgba(36, 20, 15, .72); color: var(--gold-light); max-width: calc(100% - 24px);
 }
 
 /* Revelação ao rolar (ativada pelo reveal.js) */
@@ -124,3 +122,10 @@ p { text-wrap: pretty; }
 .wave--bottom { bottom: -1px; transform: scaleY(-1); }
 .wave path { fill: currentColor; }
 main { overflow-x: clip; }
+
+/* Modo de revisão: marcadores [confirmar]/[exemplo] e notas de mídia provisória só aparecem com ?revisao na URL */
+.tbc, .placeholder-note, .hero__ph, .review-only { display: none !important; }
+.revisao .tbc { display: inline-block !important; }
+.revisao .placeholder-note, .revisao .hero__ph, .revisao .review-only { display: block !important; }
+.revisao span.review-only { display: inline !important; }
+.tbc-note { font-size: .875rem; color: var(--text-muted); }

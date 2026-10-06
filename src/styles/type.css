@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Tipografia
+   Padrão: Inter Tight (títulos com peso 600; destaque em itálico 500 com inclinação extra, laranja) + Manrope (texto)
+   Alternativa para comparação: ?tipo=classica → Playfair Display + Montserrat
+   Destaques: .script e .accent = itálico leve · .num-accent = números finos
+   ========================================================================== */
+:root {
+  --font-serif: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;   /* papel de "display" (nome mantido por compatibilidade) */
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-script: var(--font-serif);
+}
+
+h1, h2, h3, .serif { font-weight: 600; letter-spacing: -.038em; line-height: 1.04; }
+h3 { font-weight: 600; letter-spacing: -.035em; }
+
+/* Destaque: itálico leve da mesma família — o título pesa, a palavra em destaque é leve e laranja */
+.script, .accent {
+  font-family: var(--font-serif); font-style: italic; font-weight: 500; letter-spacing: -.035em;
+  color: var(--orange-burnt);
+  /* inclinação extra além do itálico da fonte (~10°): +7° */
+  display: inline-block; transform: skewX(-7deg); transform-origin: 0 80%; padding-right: .08em;
+}
+.on-dark .script, .on-dark .accent { color: var(--orange); }
+.club__cmp-caption .accent, .club__cmp-caption .script { color: #ff8b3d; }
+
+/* Números de capítulo/etapa: finíssimos e grandes */
+.num-accent { font-family: var(--font-serif); font-weight: 200; font-style: normal; letter-spacing: -.05em; color: var(--orange); }
+.toc__list .num-accent { color: var(--orange-text); font-weight: 400; }
+
+/* Ajustes por componente */
+.hero__half { font-weight: 600; letter-spacing: -.036em; will-change: transform, opacity; }
+.hero__half .script { font-weight: 500; }
+.p-card__name { font-weight: 600; letter-spacing: -.03em; }
+.p-card__name em { font-style: normal; font-weight: 300; color: var(--orange-burnt); }
+.modal__name { font-weight: 600; letter-spacing: -.02em; }
+.steps__num { font-family: var(--font-serif); font-style: normal; font-weight: 200; }
+.steps b { font-weight: 600; letter-spacing: -.02em; }
+.plan__num { font-weight: 200; letter-spacing: -.05em; }
+.plan__name { font-weight: 600; letter-spacing: -.035em; }
+.jstep__content h3 { font-weight: 600; letter-spacing: -.04em; }
+.journey__end-title { font-weight: 600; letter-spacing: -.04em; }
+.qz__q, .qz__res-title { font-weight: 600; letter-spacing: -.035em; }
+.pull p { font-weight: 500; letter-spacing: -.035em; }
+.site-footer__slogan { font-weight: 600; letter-spacing: -.03em; }
+.club__cmp-caption .serif { font-weight: 600; letter-spacing: -.035em; }
+
+
+/* ==========================================================================
+   Alternativa clássica (?tipo=classica): Playfair Display + Montserrat, destaques em itálico laranja
+   ========================================================================== */
+html.tipo-classica {
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-script: 'Playfair Display', Georgia, serif;
+}
+.tipo-classica h1, .tipo-classica h2, .tipo-classica h3, .tipo-classica .serif { font-weight: 400; letter-spacing: -.012em; line-height: 1.1; }
+.tipo-classica .script, .tipo-classica .accent, .tipo-classica .num-accent {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 1em; line-height: inherit;
+  letter-spacing: -.01em; transform: none; padding: 0; display: inline;
+}
+.tipo-classica .hero__half { font-weight: 400; letter-spacing: -.035em; }
+.tipo-classica .p-card__name { font-weight: 500; letter-spacing: -.012em; }
+.tipo-classica .p-card__name em { font-style: italic; font-weight: 400; }
+.tipo-classica .steps__num { font-style: italic; font-weight: 400; }
+.tipo-classica .plan__num, .tipo-classica .jstep__content h3, .tipo-classica .pull p { font-weight: 400; letter-spacing: -.02em; }
+

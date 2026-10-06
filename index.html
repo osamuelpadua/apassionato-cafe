@@ -19,11 +19,11 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap&amp;subset=latin" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap&amp;subset=latin"></noscript>
   <link rel="preload" as="image" type="image/avif" imagesrcset="img/hero-antes-640.avif 640w, img/hero-antes-960.avif 960w, img/hero-antes-1440.avif 1440w, img/hero-antes-1920.avif 1920w, img/hero-antes-2560.avif 2560w" imagesizes="100vw" fetchpriority="high">
   <link rel="preload" as="image" type="image/avif" imagesrcset="img/hero-depois-640.avif 640w, img/hero-depois-960.avif 960w, img/hero-depois-1440.avif 1440w, img/hero-depois-1920.avif 1920w, img/hero-depois-2560.avif 2560w" imagesizes="100vw" fetchpriority="high">
-  <script>document.documentElement.classList.add('js')</script>
+  <script>document.documentElement.classList.add('js');if(/[?&]revisao/.test(location.search))document.documentElement.classList.add('revisao');if(/[?&]tipo=classica/.test(location.search)){document.documentElement.classList.add('tipo-classica');var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap&subset=latin';document.head.appendChild(l)}</script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Organization","name":"Appassionato Café","url":"https://appassionatocafe.com.br/","logo":"https://appassionatocafe.com.br/favicon.svg","slogan":"Da nossa origem ao seu momento.","address":{"@type":"PostalAddress","addressLocality":"Garça","addressRegion":"SP","addressCountry":"BR"},"sameAs":["https://www.instagram.com/appassionatocafe/","https://www.facebook.com/Appassionatocafe","https://www.youtube.com/@AppassionatoCaf"],"contactPoint":{"@type":"ContactPoint","telephone":"+55-35-99956-5000","contactType":"customer service","availableLanguage":"Portuguese"}}
   </script>
@@ -35,57 +35,60 @@
 <main id="conteudo">
 
   <!-- ============ 1. PRIMEIRA DOBRA: antes/depois ============ -->
-  <section class="hero" id="topo" aria-labelledby="hero-title">
+  <section class="hero" id="topo" aria-labelledby="hero-title" data-hero>
     <h1 id="hero-title" class="sr-only">Da nossa origem ao seu momento.</h1>
-    <div class="cmp hero__cmp" data-ambient data-compare data-demo="load" data-demo-once="hero" data-label="o cafezal e a xícara">
-      <div class="cmp__layer cmp__layer--before" aria-hidden="true">
-        <div class="cmp__media" style="--kb-origin: 30% 55%">
-          <x-pic name="hero-antes" sizes="100vw" alt="" loading="eager" fetchpriority="high" class="hero__img hero__img--before"></x-pic>
+    <div class="hero__stage">
+      <div class="cmp hero__cmp" data-ambient data-compare data-demo="load" data-demo-delay="1800" data-demo-once="hero" data-label="o cafezal e a xícara">
+        <div class="cmp__layer cmp__layer--before" aria-hidden="true">
+          <div class="cmp__media" style="--kb-origin: 30% 55%">
+            <x-pic name="hero-antes" sizes="100vw" alt="" loading="eager" fetchpriority="high" class="hero__img hero__img--before"></x-pic>
+          </div>
+          <div class="hero__veil"></div>
+          <p class="hero__half hero__half--before"><span class="hero__half-in">Da nossa origem</span></p>
         </div>
-        <div class="hero__veil"></div>
-        <p class="hero__half hero__half--before">Da nossa origem</p>
-        <span class="placeholder-note hero__ph hero__ph--before">Vídeo: cafezal ao amanhecer · 16:9 · 8 s (foto provisória)</span>
-      </div>
-      <div class="cmp__layer cmp__layer--after" aria-hidden="true">
-        <div class="cmp__media" style="--kb-origin: 70% 55%">
-          <x-pic name="hero-depois" sizes="100vw" alt="" loading="eager" fetchpriority="high" class="hero__img hero__img--after"></x-pic>
+        <div class="cmp__layer cmp__layer--after" aria-hidden="true">
+          <div class="cmp__media" style="--kb-origin: 70% 55%">
+            <x-pic name="hero-depois" sizes="100vw" alt="" loading="eager" fetchpriority="high" class="hero__img hero__img--after"></x-pic>
+          </div>
+          <div class="hero__veil"></div>
+          <p class="hero__half hero__half--after"><span class="hero__half-in">ao seu <span class="script">momento</span>.</span></p>
         </div>
-        <div class="hero__veil"></div>
-        <p class="hero__half hero__half--after">ao seu <span class="script">momento</span>.</p>
-        <span class="placeholder-note hero__ph hero__ph--after">Vídeo: xícara com vapor · 16:9 · 8 s (foto provisória)</span>
+        <div class="cmp__loader" aria-hidden="true"><x-symbol></x-symbol></div>
+        <div class="cmp__line" aria-hidden="true"></div>
+        <button class="cmp__pause hero__pause-sr" type="button" aria-label="Pausar animação de fundo" data-cmp-pause> <svg class="i-pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="i-play" aria-hidden="true"><use href="#i-play"/></svg> </button>
+        <div class="cmp__handle" role="slider" tabindex="0" aria-label="Divisão entre o cafezal (antes) e a xícara (depois)" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50%">
+          <svg aria-hidden="true"><use href="#i-drag"/></svg>
+        </div>
+        <span class="cmp__hint" aria-hidden="true"><span>←</span> Arraste <span>→</span></span>
+
       </div>
-      <div class="cmp__loader" aria-hidden="true"><x-symbol></x-symbol></div>
-      <div class="cmp__line" aria-hidden="true"></div>
-      <span class="cmp__tag cmp__tag--before" aria-hidden="true">Antes</span>
-      <span class="cmp__tag cmp__tag--after" aria-hidden="true">Depois</span>
-      <div class="cmp__handle" role="slider" tabindex="0" aria-label="Divisão entre o cafezal (antes) e a xícara (depois)" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50%">
-        <svg aria-hidden="true"><use href="#i-drag"/></svg>
-      </div>
-      <span class="cmp__hint" aria-hidden="true">← ARRASTE →</span>
-      <button class="cmp__pause" type="button" aria-label="Pausar animação de fundo" data-cmp-pause>
-        <svg class="i-pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="i-play" aria-hidden="true"><use href="#i-play"/></svg>
-      </button>
+      <div class="hero__shade" aria-hidden="true"></div>
     </div>
 
-    <div class="hero__content container">
-      <p class="eyebrow eyebrow--light hero__eyebrow">Appassionato Café · Garça/SP</p>
-      <div class="hero__title-space" aria-hidden="true"></div>
-      <p class="hero__support">Café 100% arábica da Fazenda Santa Cecília, em Garça/SP, direto para a sua xícara.</p>
-      <div class="btn-row hero__ctas" data-hero-ctas>
-        <a class="btn btn--buy btn--lg" href="https://loja.appassionatocafe.com.br/?utm_source=landing&amp;utm_medium=botao&amp;utm_content=primeira-dobra" target="_blank" rel="noopener" data-track="comprar" data-track-place="primeira-dobra">Comprar cafés</a>
-        <a class="btn btn--sub btn--lg" href="https://loja.appassionatocafe.com.br/clube?utm_source=landing&amp;utm_medium=botao&amp;utm_content=primeira-dobra" target="_blank" rel="noopener" data-track="assinar" data-track-place="primeira-dobra">Assinar o clube</a>
+    <div class="hero__ui">
+      <p class="hero__eyebrow"><span class="hero__eb hero__eb--l"><span class="hero__rule" aria-hidden="true"></span>Appassionato Café</span><span class="hero__eb-mark" aria-hidden="true"><x-symbol class="hero__eyebrow-mark"></x-symbol></span><span class="sr-only"> · </span><span class="hero__eb hero__eb--r">Garça/SP<span class="hero__rule" aria-hidden="true"></span></span></p>
+      <div class="hero__band container">
+        <div class="hero__lead">
+          <p class="hero__support">Café 100% arábica da Fazenda Santa Cecília, em Garça/SP, direto para a sua xícara.</p>
+          <ul class="hero__micro" role="list">
+            <li><svg aria-hidden="true"><use href="#i-box"/></svg>Envio para todo o Brasil</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Cancele o clube quando quiser</li>
+          </ul>
+        </div>
+        <div class="btn-row hero__ctas" data-hero-ctas>
+          <a class="btn btn--buy btn--lg" href="https://loja.appassionatocafe.com.br/?utm_source=landing&amp;utm_medium=botao&amp;utm_content=primeira-dobra" target="_blank" rel="noopener" data-track="comprar" data-track-place="primeira-dobra">Comprar cafés <svg aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn--sub btn--lg" href="https://loja.appassionatocafe.com.br/clube?utm_source=landing&amp;utm_medium=botao&amp;utm_content=primeira-dobra" target="_blank" rel="noopener" data-track="assinar" data-track-place="primeira-dobra">Assinar o clube</a>
+        </div>
       </div>
-      <p class="hero__micro">Envio para todo o Brasil <span aria-hidden="true">·</span> Cancele o clube quando quiser</p>
+      <a class="hero__scroll" href="#historia">
+        <span class="hero__scroll-line" aria-hidden="true"><span></span></span>
+        <span class="hero__scroll-txt">Conheça nossa história</span>
+      </a>
     </div>
-
-    <a class="hero__scroll" href="#historia">
-      <span class="hero__bean" aria-hidden="true"><x-symbol></x-symbol></span>
-      Conheça nossa história
-    </a>
   </section>
 
   <!-- ============ 2. NOSSA HISTÓRIA: da semente à xícara ============ -->
-  <section class="journey on-dark" id="historia" aria-labelledby="historia-title">
+  <section class="journey on-dark sheet" id="historia" aria-labelledby="historia-title">
     <div class="journey__intro kraft">
       <x-pic name="ramo-h-light" sizes="(min-width: 768px) 700px, 360px" alt="" class="journey__intro-deco"></x-pic>
       <div class="container section__head section__head--center" data-reveal>
@@ -111,12 +114,12 @@
 
       <ol class="journey__steps" role="list">
         <li class="jstep" id="etapa-plantio" data-step="0">
-          <div class="jstep__sticky">
-            <div class="jstep__bg" data-parallax="0.18"><x-pic name="plantio" sizes="100vw" alt="Muda de café crescendo na terra vermelha, com o cafezal ao fundo"></x-pic></div>
+          <div class="jstep__card">
+            <div class="jstep__bg"><x-pic name="plantio" sizes="100vw" alt="Muda de café crescendo na terra vermelha, com o cafezal ao fundo"></x-pic></div>
             <div class="jstep__veil"></div>
-            <div class="jstep__fg" data-parallax="0.5" data-parallax-mobile="off"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
+            <div class="jstep__fg"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
             <div class="container jstep__content">
-              <span class="jstep__num script" aria-hidden="true">01</span>
+              <span class="jstep__num num-accent" aria-hidden="true">01</span>
               <p class="eyebrow">O plantio</p>
               <h3>Raízes em Garça <span class="tbc">confirmar</span></h3>
               <p class="jstep__text">Tudo começa na terra, em Garça, no interior de São Paulo. Cada pé de café cresce com paciência e cuidado.</p>
@@ -124,20 +127,21 @@
                 <a class="link-arrow" href="historia.html#plantio" data-track="capitulo" data-track-place="plantio">Conhecer essa parte da história <span aria-hidden="true">→</span></a>
                 <a class="vthumb" href="historia.html#plantio" data-track="capitulo" data-track-place="plantio-video">
                   <span class="vthumb__img"><x-pic name="plantio" sizes="84px" alt=""></x-pic><span class="vthumb__play"><svg aria-hidden="true"><use href="#i-play"/></svg></span></span>
-                  <span class="vthumb__txt"><b>Assistir</b><span>Duração a confirmar</span></span>
+                  <span class="vthumb__txt"><b>Assistir</b><span>Vídeo do capítulo<span class="review-only"> · duração a confirmar</span></span></span>
                 </a>
               </div>
             </div>
+            <div class="jstep__shade" aria-hidden="true"></div>
             <span class="placeholder-note">Foto ou vídeo: plantio · 16:9 (4:5 no celular)</span>
           </div>
         </li>
         <li class="jstep" id="etapa-colheita" data-step="1">
-          <div class="jstep__sticky">
-            <div class="jstep__bg" data-parallax="0.18"><x-pic name="colheita" sizes="100vw" alt="Mãos colhendo cerejas de café maduras em um cesto"></x-pic></div>
+          <div class="jstep__card">
+            <div class="jstep__bg"><x-pic name="colheita" sizes="100vw" alt="Mãos colhendo cerejas de café maduras em um cesto"></x-pic></div>
             <div class="jstep__veil"></div>
-            <div class="jstep__fg jstep__fg--left" data-parallax="0.5" data-parallax-mobile="off"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
+            <div class="jstep__fg jstep__fg--left"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
             <div class="container jstep__content">
-              <span class="jstep__num script" aria-hidden="true">02</span>
+              <span class="jstep__num num-accent" aria-hidden="true">02</span>
               <p class="eyebrow">A colheita</p>
               <h3>No ponto certo <span class="tbc">confirmar</span></h3>
               <p class="jstep__text">Colhido no ponto certo, grão a grão. A paixão de quem planta aparece na cor de cada cereja.</p>
@@ -145,20 +149,21 @@
                 <a class="link-arrow" href="historia.html#colheita" data-track="capitulo" data-track-place="colheita">Conhecer essa parte da história <span aria-hidden="true">→</span></a>
                 <a class="vthumb" href="historia.html#colheita" data-track="capitulo" data-track-place="colheita-video">
                   <span class="vthumb__img"><x-pic name="colheita" sizes="84px" alt=""></x-pic><span class="vthumb__play"><svg aria-hidden="true"><use href="#i-play"/></svg></span></span>
-                  <span class="vthumb__txt"><b>Assistir</b><span>Duração a confirmar</span></span>
+                  <span class="vthumb__txt"><b>Assistir</b><span>Vídeo do capítulo<span class="review-only"> · duração a confirmar</span></span></span>
                 </a>
               </div>
             </div>
+            <div class="jstep__shade" aria-hidden="true"></div>
             <span class="placeholder-note">Foto ou vídeo: colheita · 16:9 (4:5 no celular)</span>
           </div>
         </li>
         <li class="jstep" id="etapa-secagem" data-step="2">
-          <div class="jstep__sticky">
-            <div class="jstep__bg" data-parallax="0.18"><x-pic name="secagem" sizes="100vw" alt="Cerejas de café secando ao sol no terreiro, com um rodo de madeira"></x-pic></div>
+          <div class="jstep__card">
+            <div class="jstep__bg"><x-pic name="secagem" sizes="100vw" alt="Cerejas de café secando ao sol no terreiro, com um rodo de madeira"></x-pic></div>
             <div class="jstep__veil"></div>
-            <div class="jstep__fg" data-parallax="0.5" data-parallax-mobile="off"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
+            <div class="jstep__fg"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
             <div class="container jstep__content">
-              <span class="jstep__num script" aria-hidden="true">03</span>
+              <span class="jstep__num num-accent" aria-hidden="true">03</span>
               <p class="eyebrow">A secagem</p>
               <h3>Sem pressa <span class="tbc">confirmar</span></h3>
               <p class="jstep__text">O sol e o tempo transformam o fruto em sabor. Aqui, nada é apressado.</p>
@@ -166,20 +171,21 @@
                 <a class="link-arrow" href="historia.html#secagem" data-track="capitulo" data-track-place="secagem">Conhecer essa parte da história <span aria-hidden="true">→</span></a>
                 <a class="vthumb" href="historia.html#secagem" data-track="capitulo" data-track-place="secagem-video">
                   <span class="vthumb__img"><x-pic name="secagem" sizes="84px" alt=""></x-pic><span class="vthumb__play"><svg aria-hidden="true"><use href="#i-play"/></svg></span></span>
-                  <span class="vthumb__txt"><b>Assistir</b><span>Duração a confirmar</span></span>
+                  <span class="vthumb__txt"><b>Assistir</b><span>Vídeo do capítulo<span class="review-only"> · duração a confirmar</span></span></span>
                 </a>
               </div>
             </div>
+            <div class="jstep__shade" aria-hidden="true"></div>
             <span class="placeholder-note">Foto ou vídeo: secagem · 16:9 (4:5 no celular)</span>
           </div>
         </li>
         <li class="jstep" id="etapa-torra" data-step="3">
-          <div class="jstep__sticky">
-            <div class="jstep__bg" data-parallax="0.18"><x-pic name="torra" sizes="100vw" alt="Grãos recém-torrados caindo do torrador no resfriador"></x-pic></div>
+          <div class="jstep__card">
+            <div class="jstep__bg"><x-pic name="torra" sizes="100vw" alt="Grãos recém-torrados caindo do torrador no resfriador"></x-pic></div>
             <div class="jstep__veil"></div>
-            <div class="jstep__fg jstep__fg--left" data-parallax="0.5" data-parallax-mobile="off"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
+            <div class="jstep__fg jstep__fg--left"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
             <div class="container jstep__content">
-              <span class="jstep__num script" aria-hidden="true">04</span>
+              <span class="jstep__num num-accent" aria-hidden="true">04</span>
               <p class="eyebrow">A torra</p>
               <h3>O sabor revelado <span class="tbc">confirmar</span></h3>
               <p class="jstep__text">A torra revela o que o grão guarda: notas de avelã e caramelo. No clube, cada envio entra na fila de torra da semana.</p>
@@ -187,20 +193,21 @@
                 <a class="link-arrow" href="historia.html#torra" data-track="capitulo" data-track-place="torra">Conhecer essa parte da história <span aria-hidden="true">→</span></a>
                 <a class="vthumb" href="historia.html#torra" data-track="capitulo" data-track-place="torra-video">
                   <span class="vthumb__img"><x-pic name="torra" sizes="84px" alt=""></x-pic><span class="vthumb__play"><svg aria-hidden="true"><use href="#i-play"/></svg></span></span>
-                  <span class="vthumb__txt"><b>Assistir</b><span>Duração a confirmar</span></span>
+                  <span class="vthumb__txt"><b>Assistir</b><span>Vídeo do capítulo<span class="review-only"> · duração a confirmar</span></span></span>
                 </a>
               </div>
             </div>
+            <div class="jstep__shade" aria-hidden="true"></div>
             <span class="placeholder-note">Foto ou vídeo: torra · 16:9 (4:5 no celular)</span>
           </div>
         </li>
         <li class="jstep" id="etapa-xicara" data-step="4">
-          <div class="jstep__sticky">
-            <div class="jstep__bg" data-parallax="0.18"><x-pic name="xicara" sizes="100vw" alt="Duas pessoas pegando xícaras de café em uma mesa de madeira, ao sol da manhã"></x-pic></div>
+          <div class="jstep__card">
+            <div class="jstep__bg"><x-pic name="xicara" sizes="100vw" alt="Duas pessoas pegando xícaras de café em uma mesa de madeira, ao sol da manhã"></x-pic></div>
             <div class="jstep__veil"></div>
-            <div class="jstep__fg" data-parallax="0.5" data-parallax-mobile="off"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
+            <div class="jstep__fg"><x-pic name="ramo-v-light" sizes="30vw" alt=""></x-pic></div>
             <div class="container jstep__content">
-              <span class="jstep__num script" aria-hidden="true">05</span>
+              <span class="jstep__num num-accent" aria-hidden="true">05</span>
               <p class="eyebrow">A xícara</p>
               <h3>O seu momento <span class="tbc">confirmar</span></h3>
               <p class="jstep__text">E chega o seu momento. Um café para criar e fortalecer conexões.</p>
@@ -208,30 +215,33 @@
                 <a class="link-arrow" href="historia.html#xicara" data-track="capitulo" data-track-place="xicara">Conhecer essa parte da história <span aria-hidden="true">→</span></a>
                 <a class="vthumb" href="historia.html#xicara" data-track="capitulo" data-track-place="xicara-video">
                   <span class="vthumb__img"><x-pic name="xicara" sizes="84px" alt=""></x-pic><span class="vthumb__play"><svg aria-hidden="true"><use href="#i-play"/></svg></span></span>
-                  <span class="vthumb__txt"><b>Assistir</b><span>Duração a confirmar</span></span>
+                  <span class="vthumb__txt"><b>Assistir</b><span>Vídeo do capítulo<span class="review-only"> · duração a confirmar</span></span></span>
                 </a>
               </div>
             </div>
+            <div class="jstep__shade" aria-hidden="true"></div>
             <span class="placeholder-note">Foto ou vídeo: xícara · 16:9 (4:5 no celular)</span>
+          </div>
+        </li>
+        <li class="jstep-hold" aria-hidden="true"></li>
+        <li class="journey__end kraft">
+          <div class="container journey__end-inner" data-reveal="head">
+            <p class="eyebrow">Continua na página da história</p>
+            <p class="journey__end-title serif">Cada xícara guarda <span class="accent">um caminho</span>. <span class="tbc">confirmar</span></p>
+            <a class="btn btn--buy btn--lg" href="historia.html" data-track="capitulo" data-track-place="historia-completa">Ver a história completa</a>
           </div>
         </li>
       </ol>
     </div>
 
-    <div class="journey__end">
-      <div class="container section__end section__end--center">
-        <a class="btn btn--sub btn--lg" href="historia.html" data-track="capitulo" data-track-place="historia-completa">Ver a história completa</a>
-      </div>
-      <svg class="wave wave--bottom" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true" style="color: var(--cream)"><path d="M0 64V30c120-18 260-30 420-18s300 34 470 30 330-36 550-28v50H0z"/></svg>
-    </div>
   </section>
 
   <!-- ============ 3. QUIZ ============ -->
-  <section class="section quiz bg-cream kraft" id="quiz" aria-labelledby="quiz-title">
+  <section class="section quiz bg-cream kraft sheet" id="quiz" aria-labelledby="quiz-title">
     <div class="container quiz__grid">
       <div class="quiz__intro" data-reveal>
         <p class="eyebrow">Quiz · 3 perguntas</p>
-        <h2 id="quiz-title">Descubra o café ideal <span class="script">para você</span>.</h2>
+        <h2 id="quiz-title">Descubra o café ideal <span class="accent">para você</span>.</h2>
         <p class="lead">Responda a um rápido quiz e encontre o café que combina com o seu paladar.</p>
         <div class="btn-row">
           <button class="btn btn--brown btn--lg" type="button" data-quiz-start>Fazer o quiz</button>
@@ -252,13 +262,13 @@
   </section>
 
   <!-- ============ 4. NOSSOS CAFÉS ============ -->
-  <section class="section cafes bg-cream" id="cafes" aria-labelledby="cafes-title">
+  <section class="section cafes bg-cream kraft" id="cafes" aria-labelledby="cafes-title">
     <div class="cafes__divider" aria-hidden="true"><span></span><x-symbol></x-symbol><span></span></div>
     <div class="container">
       <div class="cafes__head">
         <div class="section__head" data-reveal>
           <p class="eyebrow">Nossos cafés</p>
-          <h2 id="cafes-title">Escolha o seu <span class="script">momento</span>.</h2>
+          <h2 id="cafes-title">Escolha o seu <span class="accent">momento</span>.</h2>
           <p class="lead">Do grão ao drip: encontre o formato que combina com o seu dia. <span class="tbc">descrições: confirmar</span></p>
         </div>
         <div class="chips chips--scroll cafes__filters" role="group" aria-label="Filtrar por formato" data-filters>
@@ -279,8 +289,7 @@
   </section>
 
   <!-- ============ 5. CLUBE APPASSIONATO ============ -->
-  <section class="club on-dark" id="clube" aria-labelledby="clube-title">
-    <svg class="wave wave--top" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true" style="color: var(--cream)"><path d="M0 0h1440v26c-170 26-340 34-520 22S600 10 420 16 120 44 0 30V0z"/></svg>
+  <section class="club on-dark" id="clube" data-window aria-labelledby="clube-title">
     <div class="club__bg kraft" aria-hidden="true"></div>
     <x-pic name="ramo-h-light" sizes="(min-width: 768px) 700px, 360px" alt="" class="club__deco"></x-pic>
     <div class="container club__inner">
@@ -296,12 +305,12 @@
           <div class="cmp__layer cmp__layer--before" aria-hidden="true">
             <div class="cmp__media"><x-pic name="clube-antes" sizes="(min-width: 1024px) 50vw, 100vw" alt=""></x-pic></div>
             <div class="club__cmp-veil"></div>
-            <p class="club__cmp-caption club__cmp-caption--before serif">O café acabou.</p>
+            <p class="club__cmp-caption club__cmp-caption--before"><span class="club__cmp-k">Sem o clube</span><span class="serif">O café acabou.</span></p>
           </div>
           <div class="cmp__layer cmp__layer--after" aria-hidden="true">
             <div class="cmp__media"><x-pic name="clube-depois" sizes="(min-width: 1024px) 50vw, 100vw" alt=""></x-pic></div>
             <div class="club__cmp-veil"></div>
-            <p class="club__cmp-caption club__cmp-caption--after serif">Seu próximo café já está <span class="script">a caminho</span>.</p>
+            <p class="club__cmp-caption club__cmp-caption--after"><span class="club__cmp-k">Com o clube</span><span class="serif">Já está <span class="accent">a caminho</span>.</span></p>
           </div>
           <div class="cmp__line" aria-hidden="true"></div>
           <span class="cmp__tag cmp__tag--before" aria-hidden="true">Antes</span>
@@ -309,7 +318,6 @@
           <div class="cmp__handle" role="slider" tabindex="0" aria-label="Divisão entre o pote vazio (antes) e a caixa do clube chegando (depois)" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50%">
             <svg aria-hidden="true"><use href="#i-drag"/></svg>
           </div>
-          <span class="cmp__hint" aria-hidden="true">← ARRASTE →</span>
           <button class="cmp__pause" type="button" aria-label="Pausar animação de fundo" data-cmp-pause>
             <svg class="i-pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="i-play" aria-hidden="true"><use href="#i-play"/></svg>
           </button>
@@ -317,7 +325,7 @@
 
         <!-- Bloco B: seletor de frequência -->
         <div class="plan" data-club>
-          <p class="plan__label" id="plan-label">Com que frequência você quer receber?</p>
+          <p class="plan__label eyebrow" id="plan-label">Frequência de entrega</p>
           <div class="segmented" role="radiogroup" aria-labelledby="plan-label" data-club-seg style="--i: 1">
             <span class="segmented__thumb" aria-hidden="true"></span>
             <button type="button" role="radio" aria-checked="false" data-plan="0" tabindex="-1"><span class="long">A cada 15 dias</span><span class="short">15 dias</span></button>
@@ -326,17 +334,17 @@
           </div>
           <div class="plan__card" aria-live="polite">
             <div class="plan__top">
-              <p class="plan__off"><span class="plan__num" data-club-num>20</span><span class="plan__pct">%<small>OFF</small></span></p>
-              <div>
+              <p class="plan__off"><span class="plan__num"><span data-club-num>20</span><small>%</small></span><span class="plan__off-k">de desconto em cada entrega</span></p>
+              <div class="plan__who">
                 <p class="plan__name serif" data-club-name>Plano Mensal</p>
                 <p class="plan__for" data-club-for>Para quem toma de 1 a 2 xícaras por dia</p>
               </div>
             </div>
             <ul class="plan__benefits" role="list" data-club-benefits></ul>
-            <div class="plan__timeline" tabindex="0" role="group" aria-label="Linha do tempo das entregas em 6 meses">
-              <p class="plan__tl-label"><span data-club-count>6 entregas</span> em 6 meses</p>
+            <div class="plan__timeline" role="group" aria-label="Entregas em 6 meses">
+              <div class="plan__tl-head"><span class="plan__tl-label" data-club-count>6 entregas</span><span class="plan__tl-range">em 6 meses</span></div>
               <div class="timeline" data-club-timeline aria-hidden="true"></div>
-              <div class="timeline__months" aria-hidden="true"><span>mês 1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+              <div class="timeline__ends" aria-hidden="true"><span>Hoje</span><span>6 meses</span></div>
             </div>
           </div>
         </div>
@@ -344,37 +352,42 @@
 
       <!-- Bloco C: como funciona -->
       <div class="club__how">
-        <h3 class="club__how-title">Como funciona</h3>
+        <div class="club__how-head" data-reveal="head">
+          <p class="eyebrow">Passo a passo</p>
+          <h3 class="club__how-title">Como <span class="accent">funciona</span></h3>
+        </div>
         <ol class="steps" role="list">
-          <li data-reveal><span class="step-icon"><svg aria-hidden="true"><use href="#i-bag"/></svg></span><b>Escolha seus cafés</b><span>Grãos, moído ou cápsulas.</span></li>
-          <li data-reveal style="--reveal-delay: 80ms"><span class="step-icon"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span><b>Defina a frequência</b><span>A cada 15, 30 ou 60 dias.</span></li>
-          <li data-reveal style="--reveal-delay: 160ms"><span class="step-icon"><svg aria-hidden="true"><use href="#i-box"/></svg></span><b>Receba em casa</b><span>Torra fresca a cada envio.</span></li>
-          <li data-reveal style="--reveal-delay: 240ms"><span class="step-icon"><svg aria-hidden="true"><use href="#i-cup"/></svg></span><b>Aproveite</b><span>Seu café nunca acaba.</span></li>
+          <li data-reveal><span class="steps__top"><span class="step-icon"><svg aria-hidden="true"><use href="#i-bag"/></svg></span><span class="steps__num" aria-hidden="true">01</span></span><b>Escolha seus cafés</b><span class="steps__txt">Grãos, moído ou cápsulas.</span></li>
+          <li data-reveal style="--reveal-delay: 90ms"><span class="steps__top"><span class="step-icon"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span><span class="steps__num" aria-hidden="true">02</span></span><b>Defina a frequência</b><span class="steps__txt">A cada 15, 30 ou 60 dias.</span></li>
+          <li data-reveal style="--reveal-delay: 180ms"><span class="steps__top"><span class="step-icon"><svg aria-hidden="true"><use href="#i-box"/></svg></span><span class="steps__num" aria-hidden="true">03</span></span><b>Receba em casa</b><span class="steps__txt">Torra fresca a cada envio.</span></li>
+          <li data-reveal style="--reveal-delay: 270ms"><span class="steps__top"><span class="step-icon"><svg aria-hidden="true"><use href="#i-cup"/></svg></span><span class="steps__num" aria-hidden="true">04</span></span><b>Aproveite</b><span class="steps__txt">Seu café nunca acaba.</span></li>
         </ol>
-        <ul class="club__seals" role="list">
-          <li class="seal"><svg aria-hidden="true"><use href="#i-check"/></svg>Cancele quando quiser</li>
-          <li class="seal"><svg aria-hidden="true"><use href="#i-check"/></svg>Torra fresca a cada envio</li>
-          <li class="seal"><svg aria-hidden="true"><use href="#i-check"/></svg>100% Arábica</li>
-        </ul>
-        <div class="club__cta">
-          <a class="btn btn--sub btn--lg" href="https://loja.appassionatocafe.com.br/clube?utm_source=landing&amp;utm_medium=botao&amp;utm_content=clube" target="_blank" rel="noopener" data-track="assinar" data-track-place="clube" data-club-cta>Assinar agora</a>
+        <div class="club__close" data-reveal>
+          <ul class="club__seals" role="list">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Cancele quando quiser</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Torra fresca a cada envio</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>100% Arábica</li>
+          </ul>
+          <div class="club__cta">
+          <a class="btn btn--buy btn--lg" href="https://loja.appassionatocafe.com.br/clube?utm_source=landing&amp;utm_medium=botao&amp;utm_content=clube" target="_blank" rel="noopener" data-track="assinar" data-track-place="clube" data-club-cta>Assinar agora</a>
           <a class="link-arrow" href="https://wa.me/5535999565000?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20Clube%20de%20Assinatura." target="_blank" rel="noopener" data-track="whatsapp" data-track-place="clube"><svg aria-hidden="true" width="20" height="20"><use href="#i-whatsapp"/></svg>Tirar dúvida no WhatsApp</a>
+        </div>
         </div>
         <p class="club__note">O desconto vale para os cafés do clube (grãos, moído e cápsulas), sobre o preço de venda. Acessórios e cafeteiras não entram. Sem fidelidade: pause ou cancele pela sua conta.</p>
       </div>
     </div>
-    <svg class="wave wave--bottom" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true" style="color: var(--cream)"><path d="M0 64V30c120-18 260-30 420-18s300 34 470 30 330-36 550-28v50H0z"/></svg>
   </section>
 
   <!-- ============ 6. DEPOIMENTOS ============ -->
-  <section class="section bg-cream testimonials" id="depoimentos" aria-labelledby="depo-title">
+  <section class="section bg-cream testimonials kraft" id="depoimentos" aria-labelledby="depo-title">
     <div class="container">
       <div class="section__head" data-reveal>
         <p class="eyebrow">Depoimentos</p>
-        <h2 id="depo-title">Quem prova, se <span class="script">apaixona</span>.</h2>
-        <p class="lead">Depoimentos de exemplo <span class="tbc">exemplo</span> — serão trocados pelos depoimentos reais enviados pelo cliente.</p>
+        <h2 id="depo-title">Quem prova, se <span class="accent">apaixona</span>.</h2>
+        <p class="lead">O que dizem os apaixonados pelo nosso café.</p>
+        <p class="review-only tbc-note">Depoimentos de exemplo <span class="tbc">exemplo</span> — trocar pelos depoimentos reais enviados pelo cliente.</p>
       </div>
-      <div class="carousel" data-carousel aria-roledescription="carrossel" aria-label="Depoimentos">
+      <div class="carousel" data-carousel data-reveal aria-roledescription="carrossel" aria-label="Depoimentos">
         <div class="carousel__track" data-carousel-track tabindex="0" data-testimonials></div>
         <div class="carousel__ctrl">
           <div class="carousel__dots" data-carousel-dots></div>
@@ -392,30 +405,30 @@
   </section>
 
   <!-- ============ 7. INSTAGRAM ============ -->
-  <section class="section bg-paper insta" id="instagram" aria-labelledby="insta-title">
+  <section class="section bg-paper insta kraft" id="instagram" aria-labelledby="insta-title">
     <div class="container">
       <div class="insta__head">
         <div class="section__head" data-reveal>
           <p class="eyebrow">Instagram</p>
-          <h2 id="insta-title">Acompanhe o nosso <span class="script">dia a dia</span></h2>
+          <h2 id="insta-title">Acompanhe o nosso <span class="accent">dia a dia</span></h2>
           <p class="lead"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener" class="insta__handle">@appassionatocafe</a></p>
         </div>
         <a class="btn btn--outline" href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener" data-track="instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg>Seguir no Instagram</a>
       </div>
       <ul class="insta__grid" role="list">
-        <li><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-1" sizes="(min-width: 768px) 33vw, 70vw" alt="Cerejas de café maduras com gotas de orvalho"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-2" sizes="(min-width: 768px) 33vw, 70vw" alt="Grãos de café torrados com uma colher de cerâmica"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-3" sizes="(min-width: 768px) 33vw, 70vw" alt="Café sendo coado em um filtro de vidro"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-4" sizes="(min-width: 768px) 33vw, 70vw" alt="Xícara de café com arte de coração no leite, sobre mesa de madeira clara"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-5" sizes="(min-width: 768px) 33vw, 70vw" alt="Embalagem Moderato Intenso sobre mesa de madeira com laranjas e grãos"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-6" sizes="(min-width: 768px) 33vw, 70vw" alt="Mão segurando cerejas de café recém-colhidas"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+        <li data-reveal="tile" style="--reveal-delay:0ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-1" sizes="(min-width: 768px) 33vw, 70vw" alt="Cerejas de café maduras com gotas de orvalho"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+        <li data-reveal="tile" style="--reveal-delay:110ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-2" sizes="(min-width: 768px) 33vw, 70vw" alt="Grãos de café torrados com uma colher de cerâmica"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+        <li data-reveal="tile" style="--reveal-delay:220ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-3" sizes="(min-width: 768px) 33vw, 70vw" alt="Café sendo coado em um filtro de vidro"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+        <li data-reveal="tile" style="--reveal-delay:90ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-4" sizes="(min-width: 768px) 33vw, 70vw" alt="Xícara de café com arte de coração no leite, sobre mesa de madeira clara"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+        <li data-reveal="tile" style="--reveal-delay:200ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-5" sizes="(min-width: 768px) 33vw, 70vw" alt="Embalagem Moderato Intenso sobre mesa de madeira com laranjas e grãos"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+        <li data-reveal="tile" style="--reveal-delay:310ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-6" sizes="(min-width: 768px) 33vw, 70vw" alt="Mão segurando cerejas de café recém-colhidas"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
       </ul>
-      <p class="insta__note">Imagens provisórias, atualizadas manualmente <span class="tbc">trocar por posts reais</span></p>
+      <p class="insta__note review-only">Imagens provisórias, atualizadas manualmente <span class="tbc">trocar por posts reais</span></p>
     </div>
   </section>
 
   <!-- ============ 8. DÚVIDAS FREQUENTES ============ -->
-  <section class="section bg-cream faq" id="duvidas" aria-labelledby="faq-title">
+  <section class="section bg-cream faq kraft" id="duvidas" aria-labelledby="faq-title">
     <div class="container faq__grid">
       <div class="section__head faq__head" data-reveal>
         <p class="eyebrow">Dúvidas</p>
@@ -430,10 +443,9 @@
   </section>
 
   <!-- ============ 9. CTA FINAL ============ -->
-  <section class="final on-dark bg-brown kraft" aria-labelledby="final-title">
-    <svg class="wave wave--top" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true" style="color: var(--cream)"><path d="M0 0h1440v26c-170 26-340 34-520 22S600 10 420 16 120 44 0 30V0z"/></svg>
+  <section class="final on-dark kraft" data-window aria-labelledby="final-title">
     <div class="final__photo" aria-hidden="true">
-      <div class="final__photo-inner" data-parallax="0.15"><x-pic name="cta" sizes="(min-width: 1024px) 45vw, 100vw" alt=""></x-pic></div>
+      <div class="final__photo-inner" data-parallax="0.12"><x-pic name="cta" sizes="(min-width: 1024px) 45vw, 100vw" alt=""></x-pic></div>
     </div>
     <div class="container final__inner">
       <div class="final__text" data-reveal>

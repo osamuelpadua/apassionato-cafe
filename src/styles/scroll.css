@@ -1,0 +1,230 @@
+/* ==========================================================================
+   Coreografia de rolagem
+   Variáveis definidas pelo scroll.js a cada quadro (só transform/opacity/clip-path):
+     --hx  saída do hero · --e entrada do cartão da jornada · --c cartão coberto pelo próximo
+     --w   abertura das janelas (clube, CTA final) · --sp progresso de leitura da página
+   Sem JS ou com reduced-motion, os valores padrão mostram tudo no estado final.
+   ========================================================================== */
+
+/* ---------- Rolagem suave (Lenis) ---------- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ---------- Pilha de camadas ---------- */
+main > section:not(.hero) { position: relative; z-index: 1; }
+
+/* Folha: seção que desliza por cima da anterior, com cantos arredondados e sombra de profundidade */
+.sheet {
+  --sheet-r: clamp(28px, 3.2vw, 48px);
+  border-radius: var(--sheet-r) var(--sheet-r) 0 0;
+  margin-top: calc(var(--sheet-r) * -1);
+  box-shadow: 0 -28px 60px -18px rgba(13, 7, 5, .55);
+}
+
+/* Linha de progresso de leitura no cabeçalho */
+.site-header::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--gold-light));
+  transform: scaleX(var(--sp, 0)); transform-origin: left; opacity: 0; transition: opacity var(--t-ui) var(--ease);
+}
+.site-header.is-solid::after { opacity: 1; }
+
+/* ---------- Jornada: cartões empilhados ---------- */
+.journey { --brown-night: #1a0e0a; background: var(--brown-night); }
+/* Marrom em degradê diagonal: luz no canto superior esquerdo, escurecendo até quase preto embaixo à direita */
+:root { --brown-diag: radial-gradient(60% 80% at 0% 0%, rgba(122, 70, 40, .35), transparent 70%), linear-gradient(135deg, #4a2a1c 0%, var(--brown) 28%, #2a170f 68%, #170c08 100%); }
+.journey__intro { background: var(--brown-diag); }
+.journey.sheet { margin-top: 0; } /* o hero é fixo: a história já desliza por cima sem sobreposição prévia */
+.journey__intro { position: relative; padding: calc(var(--section-y) + 12px) 0 clamp(64px, 8vw, 120px); overflow: hidden; border-radius: inherit; }
+.journey__intro-deco { position: absolute; left: 50%; top: 52%; width: min(1100px, 120%); transform: translate(-50%, -50%); opacity: .14; pointer-events: none; }
+.journey__intro .section__head { position: relative; margin-bottom: 0; }
+.journey__intro h2 { font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem); }
+.journey__track { position: relative; }
+.journey__steps { list-style: none; margin: 0; padding: 0; }
+
+.jstep {
+  --r-card: clamp(24px, 3vw, 44px);
+  position: sticky; top: 0; height: 100vh; height: 100svh;
+  margin-bottom: 42vh; margin-bottom: 42svh;     /* trecho em que a etapa fica inteira na tela */
+}
+.jstep:has(+ .jstep-hold) { margin-bottom: 0; }
+/* pausa da última etapa: espaçador (a margem de um elemento sticky encurta o trecho em que ele fica fixo) */
+.jstep-hold { height: 34vh; height: 34svh; }
+.jstep__card {
+  position: absolute; inset: 0; overflow: hidden; display: flex; align-items: center; background: var(--espresso);
+  border-radius: calc(var(--r-card) * (1 - var(--e, 1))) calc(var(--r-card) * (1 - var(--e, 1))) 0 0;
+  box-shadow: 0 -30px 70px -20px rgba(0, 0, 0, calc(.6 * (1 - var(--e, 1))));
+  transform-origin: 50% 35%;
+  transform: translate3d(0, calc(var(--c, 0) * -4vh), 0) scale(calc(1 - var(--c, 0) * .08));
+}
+.jstep.is-covered .jstep__card { visibility: hidden; }
+.jstep__bg { position: absolute; inset: 0; transform: scale(calc(1.16 - var(--e, 1) * .16)); transform-origin: 60% 50%; }
+.jstep__bg .pic { position: absolute; inset: 0; }
+.jstep__bg img { width: 100%; height: 100%; object-fit: cover; }
+.jstep:nth-child(odd) .jstep__bg img { --zo: 64% 46%; }
+.jstep:nth-child(even) .jstep__bg img { --zo: 40% 55%; }
+.jstep__veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(36, 20, 15, .88) 0%, rgba(36, 20, 15, .62) 38%, rgba(36, 20, 15, .08) 70%, rgba(36, 20, 15, .25) 100%), linear-gradient(180deg, rgba(36, 20, 15, .4), transparent 30%, transparent 72%, rgba(36, 20, 15, .65)); }
+.jstep__shade { position: absolute; inset: 0; z-index: 4; background: #0d0705; opacity: calc(var(--c, 0) * .72); pointer-events: none; }
+.jstep__fg { position: absolute; right: 4%; bottom: -10%; width: clamp(160px, 18vw, 300px); opacity: .5; pointer-events: none; transform: translate3d(0, calc((1 - var(--e, 1)) * 180px), 0); }
+.jstep__fg--left { right: auto; left: 46%; bottom: -16%; }
+.jstep__fg--left .pic { transform: scaleX(-1); }
+.jstep__content { position: relative; z-index: 2; display: grid; gap: 14px; justify-items: start; max-width: calc(620px + 2 * var(--gutter)); margin-left: max(0px, calc((100vw - var(--content-max)) / 2 - var(--gutter))); }
+/* Cada filho entra em cascata conforme a etapa chega ao topo (--i = ordem do filho) */
+.jstep__content > * {
+  --t: clamp(0, calc((var(--e, 1) - .5 - var(--i, 0) * .07) * 4.2), 1);
+  opacity: var(--t);
+  transform: translate3d(0, calc((1 - var(--t)) * 44px), 0);
+}
+.jstep__num { font-size: clamp(3.5rem, 2.4rem + 3.6vw, 6rem); line-height: .9; margin-bottom: 10px; }
+.jstep__content h3 { font-size: clamp(2rem, 1.4rem + 2.2vw, 3.25rem); line-height: 1.08; }
+.jstep__text { font-size: var(--fs-lead); line-height: 1.5; color: var(--text-on-dark); max-width: 34ch; }
+.jstep__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 8px; }
+.jstep__actions .link-arrow { color: var(--gold-light); }
+.jstep .placeholder-note { left: auto; right: var(--gutter); bottom: 20px; z-index: 3; }
+
+/* Fechamento da jornada: folha que sobe sobre a última etapa */
+.journey__end {
+  position: relative; z-index: 2;
+  background: var(--brown-diag);
+  border-radius: clamp(28px, 3.2vw, 48px) clamp(28px, 3.2vw, 48px) 0 0;
+  box-shadow: 0 -28px 60px -18px rgba(13, 7, 5, .6);
+  padding: clamp(72px, 9vw, 128px) 0 calc(clamp(72px, 9vw, 128px) + 48px);
+}
+.journey__end-inner { display: grid; justify-items: center; text-align: center; gap: 20px; }
+.journey__end-title { font-size: clamp(2rem, 1.4rem + 2.2vw, 3.5rem); line-height: 1.08; color: var(--cream); }
+
+/* Indicador de progresso */
+.jprogress-wrap { position: absolute; inset: 0 var(--gutter) 0 auto; z-index: 5; pointer-events: none; transition: opacity 400ms var(--ease); }
+.jprogress-wrap.is-hidden { opacity: 0; }
+.jprogress { position: sticky; top: 50vh; transform: translateY(-50%); pointer-events: auto; }
+.jprogress-wrap.is-hidden .jprogress { pointer-events: none; }
+.jprogress ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; justify-items: end; }
+.jprogress a { display: flex; align-items: center; gap: 12px; min-height: 40px; text-decoration: none; color: var(--cream); }
+.jprogress__label { font-size: var(--fs-label); font-weight: 700; letter-spacing: var(--ls-label); text-transform: uppercase; opacity: 0; transform: translateX(6px); transition: opacity var(--t-ui), transform var(--t-ui) var(--ease); text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
+.jprogress a:hover .jprogress__label, .jprogress a.is-active .jprogress__label, .jprogress a:focus-visible .jprogress__label { opacity: 1; transform: none; }
+/* Pontos redondos e mínimos; o ativo cresce e fica laranja */
+.jprogress__dot { order: 2; width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 249, 240, .45); transition: background-color var(--t-ui) var(--ease), transform var(--t-ui) var(--ease); }
+.jprogress a:hover .jprogress__dot { background: rgba(255, 249, 240, .85); }
+.jprogress a.is-active .jprogress__dot { background: var(--orange); transform: scale(1.6); }
+.jprogress-bar { display: none; }
+
+@media (max-width: 1023px) {
+  .jstep { margin-bottom: 30svh; }
+  .jstep__card { align-items: flex-end; padding-bottom: calc(var(--mbar-h) + 32px); transform: translate3d(0, calc(var(--c, 0) * -3vh), 0) scale(calc(1 - var(--c, 0) * .06)); }
+  .jstep__veil { background: linear-gradient(180deg, rgba(36, 20, 15, .3) 0%, rgba(36, 20, 15, .08) 30%, rgba(36, 20, 15, .8) 62%, rgba(36, 20, 15, .96) 100%); }
+  .jstep__fg { display: none; }
+  .jstep__content { margin-left: 0; max-width: none; }
+  .jstep .placeholder-note { top: calc(var(--header-h) + 24px); bottom: auto; left: var(--gutter); right: auto; }
+  .jprogress-wrap { position: sticky; top: var(--header-h); inset: auto; height: 0; z-index: 6; }
+  .jprogress { display: none; }
+  .jprogress-bar { display: block; height: 3px; background: rgba(36, 20, 15, .5); }
+  .jprogress-bar span { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--orange), var(--gold-light)); transform-origin: left; transform: scaleX(var(--jp, 0)); }
+}
+@media (max-width: 767px) {
+  .jstep__num { font-size: 3.5rem; }
+  .jstep__text { font-size: 1.0625rem; }
+  .jstep__actions { gap: 4px 20px; }
+  .jstep__actions .vthumb { order: -1; }
+}
+
+/* ---------- Janelas que se abrem até a largura total (clube, CTA final) ---------- */
+[data-window] {
+  --win: calc(1 - var(--w, 1));
+  clip-path: inset(0 calc(var(--win) * 4vw) 0 calc(var(--win) * 4vw) round calc(var(--win) * 48px + 2px));
+}
+.final[data-window] { clip-path: inset(0 calc(var(--win) * 4vw) 0 calc(var(--win) * 4vw) round calc(var(--win) * 48px + 2px) calc(var(--win) * 48px + 2px) 0 0); }
+[data-window] > .container, [data-window] .final__photo-inner { transform: translate3d(0, calc(var(--win) * 60px), 0); }
+.club { background: transparent; }
+
+/* ---------- Revelações com hierarquia ---------- */
+/* Bloco de título: eyebrow desenha o fio, título sobe por máscara, apoio vem em seguida */
+.js [data-reveal="head"] { opacity: 1; transform: none; }
+.js [data-reveal="head"] > * { opacity: 0; transform: translate3d(0, 26px, 0); transition: opacity 800ms var(--ease-expo), transform 800ms var(--ease-expo); transition-delay: calc(var(--ci, 0) * 90ms + var(--reveal-delay, 0ms)); }
+.js [data-reveal="head"] .eyebrow::before { transform: scaleX(0); transform-origin: left; transition: transform 800ms var(--ease-expo) 150ms; }
+.js [data-reveal="head"] > .rm { opacity: 1; transform: none; }
+.rm { display: block; overflow: clip; padding: .12em .06em .2em; margin: -.12em -.06em -.2em; }
+.rm__in { display: block; transform: translate3d(0, 108%, 0) rotate(1.5deg); transform-origin: 0 100%; transition: transform 800ms var(--ease-expo); transition-delay: calc(var(--ci, 0) * 90ms + var(--reveal-delay, 0ms)); }
+.js [data-reveal="head"].is-in > * { opacity: 1; transform: none; }
+.js [data-reveal="head"].is-in .eyebrow::before { transform: none; }
+.js [data-reveal="head"].is-in .rm__in { transform: none; }
+.section__head--center.is-in .eyebrow::before, .section__head--center .eyebrow::before { transform-origin: center; }
+
+/* Revelação padrão mais suave */
+/* [data-reveal=""] = revelação simples (atributo sem valor); especificidade menor que .is-in, que zera o deslocamento */
+.js [data-reveal=""] { transform: translate3d(0, 36px, 0); transition: opacity 800ms var(--ease-expo), transform 800ms var(--ease-expo); transition-delay: var(--reveal-delay, 0ms); }
+.js [data-reveal=""].is-in { transform: none; }
+
+/* Cartões de produto: cartão, disco e embalagem em tempos próprios */
+.js [data-reveal="card"] { opacity: 0; transform: translate3d(0, 56px, 0); transition: opacity 800ms var(--ease-expo), transform 800ms var(--ease-expo); transition-delay: var(--reveal-delay, 0ms); }
+.js [data-reveal="card"] .p-card__disc { transform: translate(-50%, -50%) scale(.55); transition: transform 800ms var(--ease-expo); transition-delay: calc(var(--reveal-delay, 0ms) + 120ms); }
+.js [data-reveal="card"] .p-card__img { opacity: 0; transform: translate3d(0, 34px, 0) rotate(-4deg); transition: opacity 700ms var(--ease-expo), transform 800ms var(--ease-expo); transition-delay: calc(var(--reveal-delay, 0ms) + 200ms); }
+.js [data-reveal="card"].is-in { opacity: 1; transform: none; }
+.js [data-reveal="card"].is-in .p-card__disc { transform: translate(-50%, -50%); }
+.js [data-reveal="card"].is-in .p-card__img { opacity: 1; transform: none; }
+.js [data-reveal="card"].is-in .p-card:hover .p-card__disc { transform: translate(-50%, -50%) scale(1.05); transition-delay: 0ms; }
+.js [data-reveal="card"].is-in .p-card:hover .p-card__img { transform: translate3d(0, -10px, 0) rotate(-3deg); transition-delay: 0ms; }
+
+/* Mosaico do Instagram: janela que se abre e foto que assenta */
+.js [data-reveal="tile"] a { clip-path: inset(14% 14% 14% 14% round 18px); transition: clip-path 800ms var(--ease-expo); transition-delay: var(--reveal-delay, 0ms); }
+.js [data-reveal="tile"] img { transform: scale(1.18); transition: transform 800ms var(--ease-expo); transition-delay: var(--reveal-delay, 0ms); }
+.js [data-reveal="tile"].is-in a { clip-path: inset(0 0 0 0 round var(--r-md)); }
+.js [data-reveal="tile"].is-in img { transform: none; }
+.js [data-reveal="tile"].is-in a:hover img { transform: scale(1.05); transition-delay: 0ms; }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] *, .js [data-reveal] { transition-duration: 300ms !important; transition-delay: 0ms !important; }
+  .js [data-reveal="head"] > *, .js [data-reveal="card"], .js [data-reveal="card"] .p-card__img, .rm__in { transform: none !important; }
+  .js [data-reveal="card"] .p-card__disc { transform: translate(-50%, -50%) !important; }
+  .js [data-reveal="tile"] a { clip-path: none !important; }
+  .js [data-reveal="tile"] img { transform: none !important; }
+  [data-window] { clip-path: none !important; }
+}
+
+/* ---------- Rodapé revelado por baixo da página (home, desktop) ---------- */
+@media (min-width: 768px) {
+  /* os cantos arredondados do fim da página revelam o marrom do rodapé, não o creme do body */
+  body[data-page="home"] { background: var(--brown-deep); }
+  body[data-page="home"] main { position: relative; z-index: 1; background: var(--cream); border-radius: 0 0 clamp(28px, 3.2vw, 48px) clamp(28px, 3.2vw, 48px); overflow: clip; box-shadow: 0 30px 60px -20px rgba(13, 7, 5, .5); }
+  body[data-page="home"] .site-footer { position: sticky; bottom: 0; z-index: 0; }
+}
+.js [data-reveal="tile"] { opacity: 1; transform: none; }
+
+/* ---------- Zoom-in lento nas imagens dos blocos que serão vídeo (simula a câmera em movimento) ---------- */
+/* hero e clube: .cmp.is-ambient (components.css) · aqui: etapas da jornada, abertura e player da página de história */
+.jstep__bg img, .chapter-hero__bg img, .player__poster img {
+  transform-origin: var(--zo, 50% 50%);
+  animation: slow-zoom 30s ease-in-out infinite alternate;
+}
+.jstep.is-covered .jstep__bg img, .hero.is-gone .cmp__media img { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .jstep__bg img, .chapter-hero__bg img, .player__poster img { animation: none; } }
+
+/* ---------- Grão cinematográfico (sutil) ----------
+   Textura única neutra (scripts/build-grain.mjs), sem mix-blend-mode. --grain = intensidade · --grain-size = escala. */
+:root { --grain-img: url('../assets/img/grain.png'); }
+/* Fundos escuros e fotos: só grãos escuros — o grão branco clareava a imagem e criava um véu leitoso */
+.journey__intro.kraft, .journey__end.kraft, .final.kraft, .taste.kraft, .site-footer.kraft, .club__bg.kraft,
+.hero__cmp::after, .jstep__veil::after, .chapter-hero__veil::before { --grain-img: url('../assets/img/grain-dark.png'); }
+
+/* Intensidades: sutis — perceptível de perto, invisível à distância de leitura */
+.quiz.kraft, .cafes.kraft, .testimonials.kraft, .faq.kraft, .ch-body.kraft { --grain: .1; --grain-size: 140px; }
+.insta.kraft, .chapters-nav.kraft { --grain: .08; --grain-size: 140px; }
+.journey__intro.kraft, .journey__end.kraft, .final.kraft, .taste.kraft { --grain: .5; --grain-size: 128px; }
+.site-footer.kraft { --grain: .45; --grain-size: 128px; }
+.club__bg.kraft { --grain: .45; --grain-size: 128px; }
+
+/* Fotos: grão fino e leve (película), logo acima da foto e ABAIXO da interface — vidro, alça e textos
+   ficam lisos. Na etapa, o grão mora no véu (que não muda de escala por conta própria). */
+.hero__cmp::after, .jstep__veil::after, .chapter-hero__veil::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background-image: var(--grain-img); background-size: var(--grain-size, 120px); opacity: var(--grain, .13);
+}
+.hero { --grain: .2; --grain-size: 120px; }
+.jstep { --grain: .2; --grain-size: 120px; }
+.chapter-hero__veil { --grain: .2; --grain-size: 120px; }
+
+/* CTA final: o grão cobre foto e fundo por igual (sem emenda onde a foto termina) */
+.final.kraft::before { z-index: 1; }
+.final__inner { z-index: 2; }

@@ -44,8 +44,8 @@ code { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-siz
 .ds-plans .plan { padding: 18px; }
 .ds-plans .segmented button { min-height: 52px; font-size: .9375rem; }
 .ds-plans .segmented .long { display: none; } .ds-plans .segmented .short { display: inline; }
-.ds-plans .plan__num { font-size: 4.5rem; }
-.ds-plans .timeline, .ds-plans .timeline__months { min-width: 0; }
+.ds-plans .plan__num { font-size: 3.5rem; }
+.ds-plans .plan__top { grid-template-columns: 1fr; gap: 12px; }
 .ds-logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
 .ds-logo { display: grid; place-items: center; gap: 16px; padding: 40px 24px 20px; border-radius: var(--r-lg); text-align: center; font-size: .875rem; }
 .ds-logo svg { height: 120px; width: auto; max-width: 100%; }

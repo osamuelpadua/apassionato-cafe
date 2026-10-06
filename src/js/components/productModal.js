@@ -5,6 +5,7 @@ import { products, byId, FORMATS } from '../data/products.js';
 import { storeUrl, waUrl, WA_MSG, CLUB_PATH } from '../data/links.js';
 import { $, $$, pic, icon, escapeHtml, reducedMotion, isMobile } from '../utils.js';
 import { track } from './analytics.js';
+import { smooth } from './smooth.js';
 
 export function initProductModal() {
   const modal = $('[data-modal]');
@@ -20,6 +21,8 @@ export function initProductModal() {
   let prevHash = '';
   const list = products;
 
+  // modo de revisão (?revisao): mostra campos ainda sem dado do cliente
+  const review = () => document.documentElement.classList.contains('revisao');
   const tbc = (p, field) => (p.tbc?.includes(field) ? ' <span class="tbc">confirmar</span>' : '');
 
   function renderBar(p) {
@@ -51,10 +54,10 @@ export function initProductModal() {
       <div class="modal__desc">${p.completa.map((t) => `<p>${escapeHtml(t)}</p>`).join('')}${tbc(p, 'completa')}</div>
       ${variants}
       <dl class="modal__spec">
-        ${Object.entries(p.ficha).map(([k, v]) => `<div><dt>${k}</dt><dd>${escapeHtml(v)}${tbc(p, k)}</dd></div>`).join('')}
+        ${Object.entries(p.ficha).filter(([, v]) => v !== 'A confirmar' || review()).map(([k, v]) => `<div><dt>${k}</dt><dd>${escapeHtml(v)}${tbc(p, k)}</dd></div>`).join('')}
       </dl>
       ${p.clube ? `<a class="link-arrow modal__club" href="${storeUrl(CLUB_PATH, `modal-${p.id}`)}" target="_blank" rel="noopener" data-track="assinar" data-track-place="modal-${p.id}">Ou assine e ganhe até 22% de desconto <span aria-hidden="true">→</span></a>` : ''}
-      ${p.tbc?.includes('link') ? `<p class="lead" style="font-size:.875rem">Link da loja aponta para a categoria Especial <span class="tbc">confirmar link do Drip</span></p>` : ''}`;
+      ${p.tbc?.includes('link') ? `<p class="lead review-only" style="font-size:.875rem">Link da loja aponta para a categoria Especial <span class="tbc">confirmar link do Drip</span></p>` : ''}`;
     renderBar(p);
     $$('[data-variant]', body).forEach((btn, i, all) => {
       btn.addEventListener('click', () => {
@@ -72,6 +75,7 @@ export function initProductModal() {
 
   function lockScroll(on) {
     if (on) {
+      smooth.stop();
       scrollY = window.scrollY;
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
@@ -81,6 +85,8 @@ export function initProductModal() {
       document.body.style.top = '';
       document.body.style.width = '';
       window.scrollTo({ top: scrollY, behavior: 'instant' });
+      smooth.start();
+      smooth.resync(scrollY);
     }
     document.body.classList.toggle('modal-open', on);
   }

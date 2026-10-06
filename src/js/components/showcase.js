@@ -1,19 +1,26 @@
 // Vitrine: cartões gerados a partir de products.js + filtro por formato com troca animada (FLIP).
 import { products, FORMATS } from '../data/products.js';
-import { $, $$, pic, escapeHtml, reducedMotion } from '../utils.js';
+import { $, $$, pic, icon, escapeHtml, reducedMotion } from '../utils.js';
 
 export function productCard(p, { headingLevel = 3 } = {}) {
   const h = `h${headingLevel}`;
+  const [base, extra] = p.titulo || [p.nome, ''];
   return `
     <article class="p-card" data-id="${p.id}" data-format="${p.formato}">
       <div class="p-card__stage">
-        <span class="badge p-card__tag">${escapeHtml(p.selo)}</span>
         <span class="p-card__disc" aria-hidden="true"></span>
+        <span class="p-card__floor" aria-hidden="true"></span>
         <span class="p-card__img">${pic(p.imagem, { sizes: '(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 70vw', alt: `Embalagem ${p.nomeCompleto}` })}</span>
       </div>
-      <${h} class="p-card__name">${escapeHtml(p.nome)}</${h}>
-      <p class="p-card__desc">${escapeHtml(p.curta)}</p>
-      <span class="p-card__more" aria-hidden="true">Mais informações</span>
+      <div class="p-card__body">
+        <p class="p-card__meta">${escapeHtml(p.selo)}</p>
+        <${h} class="p-card__name">${escapeHtml(base)}${extra ? ` <em>${escapeHtml(extra)}</em>` : ''}</${h}>
+        <p class="p-card__desc">${escapeHtml(p.curta)}</p>
+        <div class="p-card__foot" aria-hidden="true">
+          <span class="p-card__more">Mais informações</span>
+          <span class="p-card__arrow">${icon('i-arrow-right')}</span>
+        </div>
+      </div>
       <button type="button" class="p-card__hit" data-open-product="${p.id}"><span class="sr-only">Mais informações sobre ${escapeHtml(p.nomeCompleto)}</span></button>
     </article>`;
 }
@@ -21,7 +28,7 @@ export function productCard(p, { headingLevel = 3 } = {}) {
 export function initShowcase() {
   const grid = $('[data-showcase]');
   if (!grid) return;
-  grid.innerHTML = products.map((p) => `<div role="listitem" data-format="${p.formato}">${productCard(p)}</div>`).join('');
+  grid.innerHTML = products.map((p, i) => `<div role="listitem" data-format="${p.formato}" data-reveal="card" style="--reveal-delay:${(i % 4) * 90}ms">${productCard(p)}</div>`).join('');
   const live = $('[data-showcase-live]');
   const chips = $$('[data-filter]');
 
@@ -34,6 +41,7 @@ export function initShowcase() {
       el.hidden = !show;
     });
     const shown = items.filter((el) => !el.hidden);
+    shown.forEach((el) => el.classList.add('is-in')); // depois de filtrar, os cartões já estão no lugar
     if (!reducedMotion()) {
       shown.forEach((el, i) => {
         const a = first.get(el), b = el.getBoundingClientRect();

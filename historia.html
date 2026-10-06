@@ -14,9 +14,9 @@
   <meta property="og:image" content="https://appassionatocafe.com.br/og-image.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin"></noscript>
-  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap&amp;subset=latin" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap&amp;subset=latin"></noscript>
+  <script>document.documentElement.classList.add('js');if(/[?&]revisao/.test(location.search))document.documentElement.classList.add('revisao');if(/[?&]tipo=classica/.test(location.search)){document.documentElement.classList.add('tipo-classica');var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap&subset=latin';document.head.appendChild(l)}</script>
 </head>
 <body data-page="historia">
 <x-include src="partials/sprite.html"></x-include>
@@ -24,20 +24,20 @@
 
 <main id="conteudo">
   <!-- Abertura do capítulo (preenchida pelo historia.js conforme o hash) -->
-  <section class="chapter-hero on-dark" aria-labelledby="ch-title" data-ch-hero>
-    <div class="chapter-hero__bg" data-parallax="0.25" data-ch-bg></div>
+  <section class="chapter-hero on-dark" aria-labelledby="ch-title" data-ch-hero data-hero>
+    <div class="chapter-hero__bg" data-ch-bg></div>
     <div class="chapter-hero__veil"></div>
     <div class="container chapter-hero__content">
-      <span class="chapter-hero__num script" data-ch-num aria-hidden="true"></span>
+      <span class="chapter-hero__num num-accent" data-ch-num aria-hidden="true"></span>
       <p class="eyebrow" data-ch-eyebrow></p>
       <h1 id="ch-title" data-ch-title></h1>
       <p class="chapter-hero__lead" data-ch-lead></p>
     </div>
     <span class="placeholder-note" data-ch-ph></span>
-    <svg class="wave wave--bottom" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true" style="color: var(--cream)"><path d="M0 64V30c120-18 260-30 420-18s300 34 470 30 330-36 550-28v50H0z"/></svg>
   </section>
 
-  <!-- Leitura + índice de capítulos -->
+  <!-- Leitura + índice de capítulos: folha que sobe sobre a abertura -->
+  <div class="ch-body sheet kraft">
   <div class="container reading">
     <aside class="toc" aria-label="Capítulos">
       <details class="toc__box" data-toc open>
@@ -47,12 +47,13 @@
     </aside>
     <article class="prose" data-ch-body aria-labelledby="ch-title"></article>
   </div>
+  </div>
 
   <!-- Navegação entre capítulos -->
-  <section class="section chapters-nav bg-paper" aria-labelledby="chnav-title">
+  <section class="section chapters-nav bg-paper kraft" aria-labelledby="chnav-title">
     <div class="container">
       <div class="chapters-nav__head">
-        <h2 id="chnav-title" class="h3">Da semente à <span class="script">xícara</span></h2>
+        <h2 id="chnav-title" class="h3">Da semente à <span class="accent">xícara</span></h2>
         <div class="chapters-nav__btns">
           <a class="btn btn--outline btn--sm" data-ch-prev href="#"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg>Capítulo anterior</a>
           <a class="btn btn--brown btn--sm" data-ch-next href="#">Próximo capítulo<svg aria-hidden="true"><use href="#i-arrow-right"/></svg></a>

@@ -1,13 +1,13 @@
 /* ==========================================================================
    Página interna: capítulo da história
    ========================================================================== */
-.chapter-hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; color: var(--cream); background: var(--espresso); padding: calc(var(--header-h) + 48px) 0 clamp(96px, 12vh, 160px); }
+.chapter-hero { position: sticky; top: 0; z-index: 0; min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; color: var(--cream); background: var(--espresso); padding: calc(var(--header-h) + 48px) 0 clamp(96px, 12vh, 160px); }
 .chapter-hero__bg { position: absolute; inset: -12% 0; will-change: transform; }
 .chapter-hero__bg .pic { position: absolute; inset: 0; }
 .chapter-hero__bg img { width: 100%; height: 100%; object-fit: cover; }
 .chapter-hero__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(36, 20, 15, .55) 0%, rgba(36, 20, 15, .1) 30%, rgba(36, 20, 15, .55) 60%, rgba(36, 20, 15, .92) 100%), linear-gradient(90deg, rgba(36, 20, 15, .6), transparent 60%); }
 .chapter-hero__content { position: relative; z-index: 2; display: grid; gap: 14px; justify-items: start; }
-.chapter-hero__num { font-size: clamp(5rem, 3rem + 7vw, 10rem); line-height: .75; }
+.chapter-hero__num { font-size: clamp(3.75rem, 2.4rem + 5vw, 7rem); line-height: .9; margin-bottom: 10px; }
 .chapter-hero h1 { font-size: clamp(2.75rem, 1.4rem + 5vw, 6rem); max-width: 14ch; }
 .chapter-hero__lead { font-size: var(--fs-lead); max-width: 40ch; color: var(--text-on-dark); line-height: 1.5; }
 .chapter-hero .placeholder-note { left: auto; right: var(--gutter); bottom: 84px; }
@@ -22,7 +22,7 @@
 .toc__box summary svg, .toc__current { display: none; }
 .toc__list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 2px; border-left: 1px solid rgba(59, 34, 24, .15); }
 .toc__list a { display: flex; align-items: center; gap: 12px; min-height: 48px; padding-left: 18px; margin-left: -1px; border-left: 2px solid transparent; text-decoration: none; font-weight: 600; color: var(--text-muted); transition: color var(--t-btn), border-color var(--t-btn); }
-.toc__list a .script { font-size: 1.5rem; width: 1.6em; }
+.toc__list a .script { font-size: 1.25rem; width: 1.8em; color: var(--orange-text); }
 .toc__list a:hover { color: var(--espresso); }
 .toc__list a[aria-current="page"] { color: var(--espresso); border-left-color: var(--orange); }
 @media (max-width: 1023px) {
@@ -69,7 +69,7 @@ figcaption { margin-top: 10px; font-size: .9375rem; color: var(--text-muted); }
 .player__poster .pic { position: absolute; inset: 0; }
 .player__poster img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease); }
 .player__poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(36, 20, 15, .1), rgba(36, 20, 15, .75)); }
-.player__poster:hover img { transform: scale(1.03); }
+
 .player__btn { position: absolute; z-index: 2; left: 50%; top: 50%; width: 88px; height: 88px; margin: -44px 0 0 -44px; border-radius: 50%; display: grid; place-items: center; background: var(--orange); color: var(--espresso); box-shadow: 0 0 0 10px rgba(240, 115, 32, .25); transition: transform var(--t-btn) var(--ease); }
 .player__btn svg { width: 34px; height: 34px; margin-left: 5px; }
 .player__poster:hover .player__btn { transform: scale(1.06); }
@@ -90,7 +90,7 @@ figcaption { margin-top: 10px; font-size: .9375rem; color: var(--text-muted); }
 .ch-card__img .pic, .ch-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease); }
 .ch-card a::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(36, 20, 15, .1) 30%, rgba(36, 20, 15, .85)); }
 .ch-card a:hover img { transform: scale(1.05); }
-.ch-card__num { position: absolute; left: 16px; bottom: 44px; font-size: 2.5rem; color: var(--orange); }
+.ch-card__num { position: absolute; left: 16px; bottom: 44px; font-size: 2rem; color: var(--orange); }
 .ch-card__name { position: absolute; left: 16px; right: 16px; bottom: 16px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: .875rem; }
 .ch-card__here { position: absolute; top: 12px; left: 12px; padding: 5px 10px 4px; border-radius: var(--r-pill); background: var(--orange); color: var(--espresso); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .ch-card.is-current a { box-shadow: 0 0 0 3px var(--orange); }
@@ -102,7 +102,7 @@ figcaption { margin-top: 10px; font-size: .9375rem; color: var(--text-muted); }
 @media (max-width: 767px) { .ch-cards { grid-auto-columns: 58%; } .chapters-nav__btns { width: 100%; display: grid; grid-template-columns: 1fr 1fr; } .chapters-nav__btns .btn { padding-inline: 10px; font-size: .875rem; } }
 
 /* Faixa "Prove essa história" */
-.taste { overflow: hidden; }
+.taste { overflow: hidden; background: var(--brown-diag); }
 .taste__deco { position: absolute; left: -10%; bottom: -6%; width: min(900px, 90vw); opacity: .12; pointer-events: none; }
 .taste__grid { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
 .taste__text { display: grid; gap: 18px; justify-items: start; }
@@ -115,3 +115,11 @@ figcaption { margin-top: 10px; font-size: .9375rem; color: var(--text-muted); }
   .taste__cards > * { scroll-snap-align: start; }
   .taste .btn-row { width: 100%; }
 }
+
+/* Abertura fixa que recua enquanto a leitura sobe por cima (mesma coreografia do hero da home) */
+.chapter-hero.is-gone { visibility: hidden; }
+.chapter-hero__content { transform: translate3d(0, calc(var(--hx, 0) * -70px), 0); opacity: calc(1 - var(--hx, 0) * 1.6); }
+.chapter-hero__veil::after { content: ""; position: absolute; inset: 0; background: #0d0705; opacity: calc(var(--hx, 0) * .7); }
+main > .ch-body { position: relative; z-index: 1; background: var(--cream); }
+.ch-body.sheet { margin-top: 0; }
+@media (prefers-reduced-motion: reduce) { .chapter-hero__content { transform: none; } }

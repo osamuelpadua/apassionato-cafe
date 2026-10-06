@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Vidro líquido
+   Superfícies translúcidas que desfocam o que está atrás (fotos e fundos com grão) e criam camadas
+   de profundidade: o grão some sob o vidro, e o contraste liso × texturizado separa os planos.
+   Receita: tinta translúcida + backdrop blur/saturação + fio de luz no topo + reflexo especular + sombra.
+   Usado só em áreas pequenas ou estáticas, para não pesar na rolagem.
+   ========================================================================== */
+:root {
+  --glass-blur: blur(18px) saturate(165%);
+  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, .22), inset 0 -1px 0 rgba(255, 255, 255, .04), inset 0 0 0 1px rgba(255, 255, 255, .08);
+  --glass-drop: 0 18px 40px -22px rgba(0, 0, 0, .55);
+}
+
+/* Vidro escuro: sobre fotos e fundos marrom/laranja */
+.glass,
+.site-header.is-solid,
+.mbar,
+.vthumb,
+.hero .cmp__tag--before, .club__cmp .cmp__tag--before,
+.hero .cmp__hint,
+.hero .cmp__pause, .club__cmp .cmp__pause,
+.hero__eb-mark,
+.hero__scroll-line,
+.jprogress ol,
+.modal__close, .modal__nav {
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-edge), var(--glass-drop);
+  border-color: rgba(255, 255, 255, .14);
+}
+
+/* Painéis grandes do clube: vidro óptico (tinta + fio de luz + reflexo), sem backdrop-filter —
+   o desfoque real em áreas grandes custava quadros na rolagem */
+.plan, .steps, .club__close { box-shadow: var(--glass-edge), var(--glass-drop); }
+.site-header.is-solid { -webkit-backdrop-filter: blur(8px) saturate(150%); backdrop-filter: blur(8px) saturate(150%); }
+
+/* Reflexo especular (luz vinda do canto superior esquerdo) nos painéis maiores */
+.plan, .steps, .club__close, .vthumb, .jprogress ol { position: relative; isolation: isolate; }
+.plan::before, .steps::before, .club__close::before, .vthumb::before, .jprogress ol::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .13) 0%, rgba(255, 255, 255, .03) 32%, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, .04) 100%);
+}
+
+/* Tintas por contexto */
+.site-header.is-solid { background: rgba(36, 20, 15, .58); box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .08), 0 10px 30px -12px rgba(0, 0, 0, .45); }
+.mbar { background: rgba(36, 20, 15, .55); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 -10px 30px -12px rgba(0, 0, 0, .45); }
+/* Vidro fosco: tinta quase opaca e lisa — o grão do fundo não atravessa o vidro */
+.plan, .steps, .club__close { background: linear-gradient(160deg, rgba(86, 45, 26, .95) 0%, rgba(58, 30, 18, .96) 55%, rgba(44, 23, 14, .97) 100%); }
+.plan { border: 1px solid rgba(255, 255, 255, .14); }
+.steps { border: 1px solid rgba(255, 255, 255, .12); }
+.steps li + li { border-color: rgba(255, 255, 255, .1) !important; }
+.club__close { border: 1px solid rgba(255, 255, 255, .16); }
+.plan__timeline { background: rgba(20, 10, 6, .22); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06); }
+.segmented { background: rgba(20, 10, 6, .22); border-color: rgba(255, 255, 255, .14); box-shadow: inset 0 1px 2px rgba(0, 0, 0, .25); }
+.vthumb { background: rgba(20, 11, 8, .32); border: 1px solid rgba(255, 255, 255, .16); }
+.vthumb:hover { background: rgba(20, 11, 8, .45); }
+.hero .cmp__tag--before, .club__cmp .cmp__tag--before { background: rgba(20, 11, 8, .3); border: 1px solid rgba(255, 255, 255, .2); }
+.hero .cmp__hint { background: rgba(20, 11, 8, .26); border: 1px solid rgba(255, 255, 255, .2); }
+.hero .cmp__pause, .club__cmp .cmp__pause { background: rgba(20, 11, 8, .3); border: 1px solid rgba(255, 255, 255, .2); }
+.hero__eb-mark { background: rgba(20, 11, 8, .3); border-color: rgba(255, 255, 255, .22); }
+.hero__scroll-line { background: rgba(20, 11, 8, .28); border-color: rgba(255, 255, 255, .22); }
+.jprogress ol { padding: 10px 12px; border-radius: 22px; background: rgba(20, 11, 8, .26); border: 1px solid rgba(255, 255, 255, .12); }
+.modal__close, .modal__nav { background: rgba(251, 249, 245, .62); border: 1px solid rgba(255, 255, 255, .6); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 20px -10px rgba(36, 20, 15, .4); }
+.modal__close:hover, .modal__nav:hover { background: rgba(251, 249, 245, .85); }
+
+/* Vidro claro: aviso de cookies sobre o creme */
+.cookie-bar { background: rgba(251, 249, 245, .72); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); border: 1px solid rgba(255, 255, 255, .7); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 16px 36px -18px rgba(36, 20, 15, .4); }
+
+/* Fallback: navegadores sem backdrop-filter recebem tintas mais opacas */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header.is-solid, .mbar { background: rgba(36, 20, 15, .96); }
+  .vthumb, .hero .cmp__tag--before, .club__cmp .cmp__tag--before, .hero .cmp__hint, .hero .cmp__pause, .club__cmp .cmp__pause, .hero__eb-mark, .hero__scroll-line, .jprogress ol { background: rgba(20, 11, 8, .7); }
+}
+
+/* Indicador da jornada: pílula de vidro só com os pontos; o rótulo flutua à esquerda, fora do vidro */
+.jprogress ol { padding: 8px 6px; gap: 2px; justify-items: center; }
+.jprogress a { position: relative; justify-content: center; min-width: 32px; min-height: 36px; }
+.jprogress__label { position: absolute; right: calc(100% + 16px); top: 50%; translate: 0 -50%; white-space: nowrap; }

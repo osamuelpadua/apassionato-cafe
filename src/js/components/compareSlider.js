@@ -101,7 +101,7 @@ export function initCompare(root) {
     const key = `demo:${root.dataset.demoOnce || 'cmp'}`;
     if (!session.get(key)) {
       session.set(key, '1');
-      setTimeout(demo, 1200);
+      setTimeout(demo, +(root.dataset.demoDelay || 1200));
     }
   } else if (mode === 'view') {
     const io = new IntersectionObserver((entries) => {

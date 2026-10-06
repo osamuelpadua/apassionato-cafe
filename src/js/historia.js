@@ -7,7 +7,9 @@ import { initAnalytics, track } from './components/analytics.js';
 import { initHeader } from './components/header.js';
 import { initProductModal } from './components/productModal.js';
 import { productCard } from './components/showcase.js';
-import { initReveal, initParallax } from './components/motion.js';
+import { initReveal } from './components/motion.js';
+import { initSmooth } from './components/smooth.js';
+import { initScroll } from './components/scroll.js';
 
 const DEFAULT = 'colheita';
 const TBC = ' <span class="tbc">confirmar</span>';
@@ -31,7 +33,7 @@ function renderBody(c) {
   const quote = `<blockquote class="pull"><span class="pull__mark script" aria-hidden="true">“</span><p>${escapeHtml(c.citacao)}</p></blockquote>`;
   const idx = c.corpo.findIndex((b, i) => b.p && c.corpo.slice(0, i + 1).filter((x) => x.p).length === 2);
   parts.splice(idx >= 0 ? idx + 1 : parts.length, 0, quote);
-  return `<p class="prose__note">Textos sugeridos a partir do briefing${TBC}</p>${parts.join('')}`;
+  return `<p class="prose__note review-only">Textos sugeridos a partir do briefing${TBC}</p>${parts.join('')}`;
 }
 
 function videoBlock(c) {
@@ -40,7 +42,7 @@ function videoBlock(c) {
       <button type="button" class="player__poster" data-play aria-label="Assistir ao vídeo: ${escapeHtml(c.video.titulo)}">
         ${pic(c.video.poster, { sizes: '(min-width: 1024px) 760px, 100vw', alt: '' })}
         <span class="player__btn" aria-hidden="true">${icon('i-play')}</span>
-        <span class="player__meta"><b>${escapeHtml(c.video.titulo)}</b><span>Duração a confirmar</span></span>
+        <span class="player__meta"><b>${escapeHtml(c.video.titulo)}</b><span>Vídeo do capítulo<span class="review-only"> · duração a confirmar</span></span></span>
       </button>
       <figcaption class="placeholder-note">Vídeo: ${escapeHtml(c.eyebrow.toLowerCase())} · 16:9 · carrega só ao clicar</figcaption>
     </figure>`;
@@ -62,14 +64,14 @@ function render(slug, { scroll = false } = {}) {
   // Índice lateral / menu recolhível
   $('[data-toc-current]').textContent = `${c.num} · ${c.eyebrow}`;
   $('[data-toc-list]').innerHTML = chapters.map((x) => `
-    <li><a href="#${x.slug}"${x === c ? ' aria-current="page"' : ''}><span class="script">${x.num}</span>${escapeHtml(x.eyebrow)}</a></li>`).join('');
+    <li><a href="#${x.slug}"${x === c ? ' aria-current="page"' : ''}><span class="num-accent">${x.num}</span>${escapeHtml(x.eyebrow)}</a></li>`).join('');
 
   // Cartões dos 5 capítulos + anterior/próximo
   $('[data-ch-cards]').innerHTML = chapters.map((x) => `
     <li class="ch-card${x === c ? ' is-current' : ''}">
       <a href="#${x.slug}"${x === c ? ' aria-current="page"' : ''}>
         <span class="ch-card__img">${pic(x.imagem, { sizes: '(min-width: 1024px) 260px, 60vw', alt: '' })}</span>
-        <span class="ch-card__num script" aria-hidden="true">${x.num}</span>
+        <span class="ch-card__num num-accent" aria-hidden="true">${x.num}</span>
         <span class="ch-card__name">${escapeHtml(x.eyebrow)}</span>
         ${x === c ? '<span class="ch-card__here">Você está aqui</span>' : ''}
       </a>
@@ -90,10 +92,11 @@ function render(slug, { scroll = false } = {}) {
   }, { once: true }));
 
   track('capitulo_aberto', { capitulo: c.slug });
-  if (scroll) window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' });
+  if (scroll) { if (window.lenis) window.lenis.scrollTo(0, { duration: 1.2 }); else window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' }); }
 }
 
 initAnalytics();
+initSmooth();
 initHeader();
 initProductModal();
 
@@ -109,4 +112,4 @@ window.addEventListener('hashchange', () => {
 if (window.matchMedia('(max-width: 1023px)').matches) $('[data-toc]').open = false;
 
 initReveal();
-initParallax();
+initScroll();

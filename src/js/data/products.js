@@ -17,6 +17,7 @@ export const FORMATS = {
 export const products = [
   {
     id: 'delicato',
+    titulo: ['Delicato', 'em grãos'], // cartão: nome + complemento em itálico laranja
     nome: 'Delicato',
     nomeCompleto: 'Delicato Grãos',
     linha: 'Delicato',
@@ -40,6 +41,7 @@ export const products = [
   },
   {
     id: 'delicato-moido',
+    titulo: ['Delicato', 'moído'], // cartão: nome + complemento em itálico laranja
     nome: 'Delicato Moído',
     nomeCompleto: 'Delicato Moído',
     linha: 'Delicato',
@@ -60,6 +62,7 @@ export const products = [
   },
   {
     id: 'moderato-intenso',
+    titulo: ['Moderato', 'intenso'], // cartão: nome + complemento em itálico laranja
     nome: 'Moderato Intenso',
     nomeCompleto: 'Moderato Intenso Grãos',
     linha: 'Moderato',
@@ -80,6 +83,7 @@ export const products = [
   },
   {
     id: 'moderato-moido',
+    titulo: ['Moderato', 'moído'], // cartão: nome + complemento em itálico laranja
     nome: 'Moderato Moído',
     nomeCompleto: 'Moderato Moído',
     linha: 'Moderato',
@@ -100,6 +104,7 @@ export const products = [
   },
   {
     id: 'especial',
+    titulo: ['Especial', 'em grãos'], // cartão: nome + complemento em itálico laranja
     nome: 'Especial',
     nomeCompleto: 'Especial Grãos',
     linha: 'Especial',
@@ -120,6 +125,7 @@ export const products = [
   },
   {
     id: 'capsulas',
+    titulo: ['Cápsulas', 'especial'], // cartão: nome + complemento em itálico laranja
     nome: 'Cápsulas',
     nomeCompleto: 'Cápsulas Especial',
     linha: 'Delicato',
@@ -140,6 +146,7 @@ export const products = [
   },
   {
     id: 'drip-coffee',
+    titulo: ['Drip', 'coffee'], // cartão: nome + complemento em itálico laranja
     nome: 'Drip Coffee',
     nomeCompleto: 'Drip Coffee',
     linha: 'Drip',
@@ -160,6 +167,7 @@ export const products = [
   },
   {
     id: 'kits',
+    titulo: ['Kits', ''], // cartão: nome + complemento em itálico laranja
     nome: 'Kits',
     nomeCompleto: 'Kits Appassionato',
     linha: 'Kits',

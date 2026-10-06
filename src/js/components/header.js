@@ -1,6 +1,7 @@
 // Cabeçalho fixo (transparente → marrom com desfoque após 80 px), menu do celular,
 // barra fixa Comprar/Assinar (aparece quando os CTAs da primeira dobra saem da tela) e item ativo do menu.
 import { $, $$, local } from '../utils.js';
+import { smooth } from './smooth.js';
 
 export function initHeader() {
   const header = $('[data-header]');
@@ -31,6 +32,7 @@ export function initHeader() {
     openBtn.setAttribute('aria-expanded', String(open));
     document.body.classList.toggle('is-locked', open);
     document.body.classList.toggle('menu-open', open);
+    open ? smooth.stop() : smooth.start();
     if (open) closeBtn.focus(); else openBtn.focus();
   };
   openBtn?.addEventListener('click', () => setMenu(true));
@@ -48,11 +50,13 @@ export function initHeader() {
 
   // Barra fixa do celular
   const mbar = $('[data-mbar]');
-  const heroCtas = $('[data-hero-ctas]');
-  const showBar = (on) => { mbar?.classList.toggle('is-visible', on); document.body.classList.toggle('mbar-on', on); };
-  if (heroCtas) {
-    new IntersectionObserver(([en]) => showBar(!en.isIntersecting && en.boundingClientRect.top < 0), { threshold: 0 }).observe(heroCtas);
-  } else showBar(true);
+  const hero = $('[data-hero]');
+  let barOn = null;
+  const showBar = (on) => { if (on === barOn) return; barOn = on; mbar?.classList.toggle('is-visible', on); document.body.classList.toggle('mbar-on', on); };
+  // o hero é fixo (sticky): a barra aparece quando a história já cobriu metade da primeira dobra
+  const checkBar = () => showBar(!hero || window.scrollY > window.innerHeight * 0.55);
+  checkBar();
+  window.addEventListener('scroll', checkBar, { passive: true });
 
   // Item ativo do menu conforme a seção na tela
   if (page === 'home') {
@@ -71,7 +75,11 @@ export function initHeader() {
   // Aviso de cookies
   const bar = $('[data-cookie]');
   if (bar && !local.get('cookie-ok')) {
-    bar.hidden = false;
+    // aviso discreto: só depois que a pessoa começa a rolar (ou após 6 s), para não poluir a primeira dobra
+    const show = () => { bar.hidden = false; window.removeEventListener('scroll', onFirst); };
+    const onFirst = () => { if (window.scrollY > window.innerHeight * 0.4) show(); };
+    window.addEventListener('scroll', onFirst, { passive: true });
+    setTimeout(show, 6000);
     $('[data-cookie-ok]', bar).addEventListener('click', () => { local.set('cookie-ok', '1'); bar.hidden = true; });
   }
 }

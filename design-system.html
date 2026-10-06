@@ -8,9 +8,9 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin"></noscript>
-  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap&amp;subset=latin" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap&amp;subset=latin"></noscript>
+  <script>document.documentElement.classList.add('js','revisao');if(/[?&]tipo=classica/.test(location.search)){document.documentElement.classList.add('tipo-classica');var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap&subset=latin';document.head.appendChild(l)}</script>
 </head>
 <body data-page="ds" class="ds">
 <x-include src="partials/sprite.html"></x-include>
@@ -40,11 +40,11 @@
 
   <section id="tipografia" class="ds-sec" aria-labelledby="t-tipo">
     <h2 id="t-tipo">Tipografia</h2>
-    <p class="lead">Três famílias (Google Fonts, <code>display=swap</code>, subconjunto latino). Dosis substitui Jost/Outfit/Josefin por ser a mais próxima do nome “appassionato” no logo (condensada, terminais arredondados).</p>
+    <p class="lead">Duas famílias (Google Fonts, <code>display=swap</code>, subconjunto latino): Playfair Display para títulos e, em itálico laranja, para as palavras de destaque; Montserrat para texto e interface.</p>
     <div class="type-specimen">
-      <div><span class="ds-label">Serifada de alto contraste · Cormorant Garamond 500/600 · títulos e nomes dos cafés</span><p class="serif" style="font-size:var(--fs-hero);line-height:1">Da nossa origem</p><p class="p-card__name" style="font-size:2rem">Moderato Intenso</p></div>
-      <div><span class="ds-label">Sans · Dosis 400–700 · textos, menus, botões, rótulos</span><p style="font-size:var(--fs-lead)">Café 100% arábica da Fazenda Santa Cecília, em Garça/SP, direto para a sua xícara.</p><p class="eyebrow">Rótulo em caixa-alta · 12–13 px · espaçamento 0,22em</p></div>
-      <div><span class="ds-label">Script · Parisienne · 1 a 3 palavras por tela, nunca em texto corrido</span><p class="script" style="font-size:4rem">momento</p></div>
+      <div><span class="ds-label">Serifada · Playfair Display 400/500 · títulos e nomes dos cafés</span><p class="serif" style="font-size:var(--fs-hero);line-height:1">Da nossa origem</p><p class="p-card__name" style="font-size:2rem">Moderato Intenso</p></div>
+      <div><span class="ds-label">Sem serifa · Montserrat 400–700 · textos, menus, botões, rótulos</span><p style="font-size:var(--fs-lead)">Café 100% arábica da Fazenda Santa Cecília, em Garça/SP, direto para a sua xícara.</p><p class="eyebrow">Rótulo em caixa-alta · 12–13 px · espaçamento 0,22em</p></div>
+      <div><span class="ds-label">Acento · Playfair Display itálico em laranja · 1 a 3 palavras por tela, nunca em texto corrido</span><p class="script" style="font-size:4rem">momento</p></div>
     </div>
     <table class="ds-table">
       <caption class="sr-only">Escala tipográfica fluida</caption>
@@ -171,11 +171,11 @@
         <button type="button" role="radio" aria-checked="false" tabindex="-1"><span class="long">A cada 60 dias</span><span class="short">60 dias</span></button>
       </div>
       <div class="plan__card">
-        <div class="plan__top"><p class="plan__off"><span class="plan__num" data-club-num>20</span><span class="plan__pct">%<small>OFF</small></span></p>
-        <div><p class="plan__name serif" data-club-name></p><p class="plan__for" data-club-for></p></div></div>
+        <div class="plan__top"><p class="plan__off"><span class="plan__num"><span data-club-num>20</span><small>%</small></span><span class="plan__off-k">de desconto em cada entrega</span></p>
+        <div class="plan__who"><p class="plan__name serif" data-club-name></p><p class="plan__for" data-club-for></p></div></div>
         <ul class="plan__benefits" role="list" data-club-benefits></ul>
-        <div class="plan__timeline" tabindex="0" role="group" aria-label="Linha do tempo das entregas em 6 meses"><p class="plan__tl-label"><span data-club-count></span> em 6 meses</p><div class="timeline" data-club-timeline aria-hidden="true"></div>
-        <div class="timeline__months" aria-hidden="true"><span>mês 1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div></div>
+        <div class="plan__timeline" role="group" aria-label="Entregas em 6 meses"><div class="plan__tl-head"><span class="plan__tl-label" data-club-count></span><span class="plan__tl-range">em 6 meses</span></div><div class="timeline" data-club-timeline aria-hidden="true"></div>
+        <div class="timeline__ends" aria-hidden="true"><span>Hoje</span><span>6 meses</span></div></div>
       </div>
     </div>
   </template>

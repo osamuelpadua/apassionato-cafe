@@ -101,13 +101,27 @@ A mensagem do WhatsApp é montada a partir de `WA_MSG.product(nomeCompleto, vari
 
 - **Vídeos substituídos por fotos:** sem vídeos do cliente, o hero, a jornada e o clube usam fotos com zoom lento (só `transform`, iniciado depois do carregamento e pausável); o componente já aceita `<video>` sem mudança de código.
 - **Logo vetorizado da embalagem:** o PDF do logo não estava disponível, então o logo foi vetorizado da foto da embalagem Especial publicada na loja, sem redesenho, e está marcado para troca pelo vetor oficial.
-- **Fonte sans Dosis:** a Dosis substitui Jost, Outfit e Josefin porque é a mais próxima do nome "appassionato" do logo (condensada, de terminais arredondados); Cormorant Garamond e Parisienne ficaram nas outras duas funções.
+- **Fontes:** Inter Tight (títulos em peso 600; palavras de destaque em itálico 500, laranja, com 7° de inclinação extra) e Manrope (texto e interface). A combinação anterior, Playfair Display + Montserrat, segue disponível para comparação com `?tipo=classica` na URL (`src/styles/type.css`).
+- **Grão:** duas texturas geradas por `scripts/build-grain.mjs`. A neutra (`grain.png`) fica nos fundos claros; a só de grãos escuros (`grain-dark.png`) fica nos fundos escuros e nas fotos, para não clarear a imagem. A intensidade é ajustada por bloco com `--grain` (`src/styles/scroll.css`). Nas fotos, o grão fica abaixo da interface.
+- **Vidro:** desfoque real (`backdrop-filter`) só no cabeçalho e em elementos pequenos sobre fotos (`src/styles/glass.css`). Os painéis grandes do clube usam vidro fosco com tinta quase opaca, sem desfoque: é mais leve na rolagem e o grão do fundo não atravessa.
+- **Cores de ação:** o laranja da marca é a cor de destaque. O botão principal é laranja cheio e o secundário é contorno, sem dourado. A alça do slider é um círculo laranja sem contorno, com pulso até a primeira interação.
 - **Script laranja-queimado em fundo claro:** o laranja #F07320 sobre creme dá 2,6:1, então palavras em script sobre fundo claro usam o laranja queimado #C84E0C; o laranja vivo fica no escuro e nos botões.
 - **Verde do WhatsApp mais escuro:** #167F43, para o texto branco passar no AA (5:1).
 - **Barra fixa só depois do hero:** no celular, a barra Comprar/Assinar aparece quando os CTAs da primeira dobra saem da tela, para não duplicar botões no primeiro quadro.
 - **Capítulo definido pelo hash:** `historia.html#colheita` e os demais usam um único modelo, como nos links pedidos (`/historia#plantio`).
 - **Títulos das etapas:** a tabela da jornada não trazia títulos, então foram sugeridos títulos curtos ("Raízes em Garça", "No ponto certo" etc.), marcados [confirmar].
 - **Ordem das seções:** mantida a do briefing; não houve motivo forte para mudar.
+
+## Modo de revisão
+
+Os selos [confirmar]/[exemplo] e as notas de mídia provisória ficam ocultos no site. Para vê-los, abra qualquer página com `?revisao` na URL (ex.: `index.html?revisao`).
+
+## Movimento de rolagem
+
+- Rolagem suave com Lenis (só mouse/trackpad; desligada no toque e com reduced-motion).
+- `scroll.js`: um laço por quadro que escreve variáveis CSS — `--hx` (hero fixo que recua e escurece enquanto a história sobe por cima), `--e`/`--c` (etapas da jornada empilhadas como cartões), `--w` (clube e CTA final abrem de um bloco recuado até a largura total), `--sp` (linha de progresso no cabeçalho).
+- Revelações com hierarquia (`motion.js`): títulos sobem por máscara, cartões de produto montam disco e embalagem em tempos próprios, mosaico do Instagram abre em janela.
+- Zoom-in lento (30 s) nas imagens que serão vídeo: hero, clube, etapas da jornada e abertura/player da página de história.
 
 ## Pendências visíveis no protótipo
 
