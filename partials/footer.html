@@ -1,0 +1,81 @@
+<footer class="site-footer bg-brown-deep on-dark kraft">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a href="index.html#topo" class="site-footer__logo" aria-label="Appassionato Café — início"><x-logo variant="stacked"></x-logo></a>
+      <p class="site-footer__slogan serif">Da nossa origem ao seu <span class="script">momento</span>.</p>
+      <ul class="site-footer__social" role="list">
+        <li><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+        <li><a href="https://www.facebook.com/Appassionatocafe" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
+        <li><a href="https://www.youtube.com/@AppassionatoCaf" target="_blank" rel="noopener" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
+      </ul>
+    </div>
+    <nav class="site-footer__col" aria-labelledby="ft-navegue">
+      <h2 id="ft-navegue" class="site-footer__title">Navegue</h2>
+      <ul role="list">
+        <li><a href="index.html#historia">Nossa história</a></li>
+        <li><a href="index.html#cafes">Cafés</a></li>
+        <li><a href="index.html#clube">Clube</a></li>
+        <li><a href="index.html#duvidas">Dúvidas</a></li>
+      </ul>
+    </nav>
+    <nav class="site-footer__col" aria-labelledby="ft-compre">
+      <h2 id="ft-compre" class="site-footer__title">Compre</h2>
+      <ul role="list">
+        <li><a href="https://loja.appassionatocafe.com.br/?utm_source=landing&amp;utm_medium=botao&amp;utm_content=rodape" target="_blank" rel="noopener" data-track="comprar" data-track-place="rodape">Loja virtual</a></li>
+        <li><a href="https://loja.appassionatocafe.com.br/clube?utm_source=landing&amp;utm_medium=botao&amp;utm_content=rodape" target="_blank" rel="noopener" data-track="assinar" data-track-place="rodape">Clube de assinaturas</a></li>
+        <li><a href="https://wa.me/5535999565000?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Appassionato%20e%20gostaria%20de%20ajuda." target="_blank" rel="noopener" data-track="whatsapp" data-track-place="rodape">WhatsApp (35) 99956-5000</a></li>
+      </ul>
+    </nav>
+    <div class="site-footer__col">
+      <h2 class="site-footer__title">Atendimento</h2>
+      <ul role="list" class="site-footer__contact">
+        <li><svg aria-hidden="true"><use href="#i-clock"/></svg>Segunda a sexta, das 7h30 às 17h30</li>
+        <li><svg aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:contato@appassionatocafe.com.br">contato@appassionatocafe.com.br</a> <span class="tbc">confirmar</span></li>
+        <li><svg aria-hidden="true"><use href="#i-pin"/></svg>Garça/SP · Envio para todo o Brasil</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__legal">
+    <p>© 2026 Appassionato Café · Garça/SP</p>
+    <ul role="list">
+      <li><a href="https://loja.appassionatocafe.com.br/politica-de-privacidade" target="_blank" rel="noopener">Política de Privacidade</a></li>
+      <li><a href="https://loja.appassionatocafe.com.br/termos-e-condicoes-de-uso" target="_blank" rel="noopener">Termos e Condições de Uso</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- Barra fixa do celular: Comprar + Assinar -->
+<div class="mbar" data-mbar>
+  <div class="mbar__inner">
+    <a class="btn btn--buy" href="https://loja.appassionatocafe.com.br/?utm_source=landing&amp;utm_medium=botao&amp;utm_content=barra-celular" target="_blank" rel="noopener" data-track="comprar" data-track-place="barra-celular">Comprar cafés</a>
+    <a class="btn btn--sub" href="https://loja.appassionatocafe.com.br/clube?utm_source=landing&amp;utm_medium=botao&amp;utm_content=barra-celular" target="_blank" rel="noopener" data-track="assinar" data-track-place="barra-celular">Assinar o clube</a>
+  </div>
+</div>
+
+<!-- WhatsApp flutuante -->
+<a class="wa-float" href="https://wa.me/5535999565000?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Appassionato%20e%20gostaria%20de%20ajuda." target="_blank" rel="noopener" data-track="whatsapp" data-track-place="flutuante">
+  <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
+  <span class="wa-float__label">Fale com a gente</span>
+  <span class="sr-only">Falar no WhatsApp</span>
+</a>
+
+<!-- Aviso discreto de cookies -->
+<div class="cookie-bar" role="region" aria-label="Aviso de cookies" data-cookie hidden>
+  <p>Usamos cookies para medir visitas e melhorar a página. <a href="https://loja.appassionatocafe.com.br/politica-de-privacidade" target="_blank" rel="noopener">Saiba mais</a></p>
+  <button type="button" data-cookie-ok>Entendi</button>
+</div>
+
+<!-- Modal de produto (preenchido pelo productModal.js) -->
+<div class="modal" data-modal aria-hidden="true">
+  <div class="modal__veil" data-modal-close></div>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+    <div class="modal__grab" data-modal-grab aria-hidden="true"></div>
+    <div class="modal__media" data-modal-media></div>
+    <div class="modal__body" data-modal-body></div>
+    <div class="modal__bar" data-modal-bar></div>
+    <button class="modal__close" type="button" data-modal-close><svg aria-hidden="true"><use href="#i-close"/></svg><span class="sr-only">Fechar</span></button>
+    <button class="modal__nav modal__nav--prev" type="button" data-modal-prev><svg aria-hidden="true"><use href="#i-chevron-left"/></svg><span class="sr-only">Café anterior</span></button>
+    <button class="modal__nav modal__nav--next" type="button" data-modal-next><svg aria-hidden="true"><use href="#i-chevron-right"/></svg><span class="sr-only">Próximo café</span></button>
+  </div>
+</div>
+<div class="sr-only" aria-live="polite" data-live></div>

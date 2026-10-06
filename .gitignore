@@ -1,0 +1,5 @@
+node_modules/
+dist/
+test-results/
+# originais baixados da loja e gerados no Magnific (159 MB); as versões otimizadas estão em public/img
+_ref/

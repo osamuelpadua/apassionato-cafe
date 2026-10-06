@@ -1,0 +1,37 @@
+import '../styles/main.css';
+import { $, $$ } from './utils.js';
+import { initAnalytics } from './components/analytics.js';
+import { initHeader } from './components/header.js';
+import { initCompare } from './components/compareSlider.js';
+import { initReveal, initParallax } from './components/motion.js';
+import { initJourney } from './components/journey.js';
+import { initQuiz } from './components/quiz.js';
+import { initShowcase } from './components/showcase.js';
+import { initProductModal } from './components/productModal.js';
+import { initClubSelector } from './components/clubSelector.js';
+import { renderTestimonials, initCarousel, renderFaq, initAccordion } from './components/widgets.js';
+
+// Primeira dobra: imediato
+initAnalytics();
+initHeader();
+$$('[data-compare]').forEach(initCompare);
+const modal = initProductModal();
+
+// Abaixo da dobra: em tempo ocioso, para não atrasar a primeira pintura (LCP).
+// Se a página abrir com âncora (#cafes, #cafe-x…), monta tudo na hora.
+const below = () => {
+  initShowcase();
+  initQuiz((id, from) => modal.open(id, from));
+  initJourney();
+  initClubSelector();
+  renderTestimonials();
+  $$('[data-carousel]').forEach(initCarousel);
+  renderFaq();
+  const acc = $('[data-accordion]');
+  if (acc) initAccordion(acc);
+  initReveal();
+  initParallax();
+  if (location.hash && !location.hash.startsWith('#cafe-')) document.querySelector(location.hash)?.scrollIntoView();
+};
+if (location.hash || !('requestIdleCallback' in window)) below();
+else requestIdleCallback(below, { timeout: 1200 });

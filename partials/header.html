@@ -1,0 +1,47 @@
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="index.html#topo" aria-label="Appassionato Café — início">
+      <x-logo variant="horizontal"></x-logo>
+    </a>
+    <nav class="site-nav" aria-label="Principal">
+      <ul>
+        <li><a href="index.html#historia" data-nav="historia">Nossa história</a></li>
+        <li><a href="index.html#cafes" data-nav="cafes">Cafés</a></li>
+        <li><a href="index.html#clube" data-nav="clube">Clube</a></li>
+        <li><a href="index.html#duvidas" data-nav="duvidas">Dúvidas</a></li>
+      </ul>
+    </nav>
+    <a class="back-home" href="index.html" data-only="historia">← Voltar à home</a>
+    <div class="site-header__ctas">
+      <a class="btn btn--buy btn--sm" href="https://loja.appassionatocafe.com.br/?utm_source=landing&amp;utm_medium=botao&amp;utm_content=cabecalho" target="_blank" rel="noopener" data-track="comprar" data-track-place="cabecalho">Comprar cafés</a>
+      <a class="btn btn--sub btn--sm" href="https://loja.appassionatocafe.com.br/clube?utm_source=landing&amp;utm_medium=botao&amp;utm_content=cabecalho" target="_blank" rel="noopener" data-track="assinar" data-track-place="cabecalho">Assinar o clube</a>
+    </div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-celular" data-menu-open>
+      <svg aria-hidden="true"><use href="#i-menu"/></svg><span class="sr-only">Abrir menu</span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu on-dark" id="menu-celular" role="dialog" aria-modal="true" aria-label="Menu" data-menu>
+  <div class="mobile-menu__top">
+    <x-logo variant="horizontal" class="logo"></x-logo>
+    <button class="menu-toggle" type="button" data-menu-close style="display:inline-flex">
+      <svg aria-hidden="true"><use href="#i-close"/></svg><span class="sr-only">Fechar menu</span>
+    </button>
+  </div>
+  <nav aria-label="Menu do celular">
+    <ul>
+      <li><a href="index.html#historia">Nossa história</a></li>
+      <li><a href="index.html#cafes">Cafés</a></li>
+      <li><a href="index.html#clube">Clube</a></li>
+      <li><a href="index.html#duvidas">Dúvidas</a></li>
+    </ul>
+  </nav>
+  <div class="mobile-menu__ctas">
+    <a class="btn btn--buy btn--block" href="https://loja.appassionatocafe.com.br/?utm_source=landing&amp;utm_medium=botao&amp;utm_content=menu" target="_blank" rel="noopener" data-track="comprar" data-track-place="menu">Comprar cafés</a>
+    <a class="btn btn--sub btn--block" href="https://loja.appassionatocafe.com.br/clube?utm_source=landing&amp;utm_medium=botao&amp;utm_content=menu" target="_blank" rel="noopener" data-track="assinar" data-track-place="menu">Assinar o clube</a>
+    <a class="btn btn--outline btn--block" href="https://wa.me/5535999565000?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Appassionato%20e%20gostaria%20de%20ajuda." target="_blank" rel="noopener" data-track="whatsapp" data-track-place="menu"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Falar no WhatsApp</a>
+  </div>
+</div>

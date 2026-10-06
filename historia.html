@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>A colheita — Nossa história · Appassionato Café</title>
+  <meta name="description" content="Da semente à xícara: conheça cada capítulo da história do Appassionato Café, de Garça/SP.">
+  <meta name="theme-color" content="#3B2218">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Nossa história — Appassionato Café">
+  <meta property="og:description" content="Da semente à xícara: a história do Appassionato Café, de Garça/SP.">
+  <meta property="og:image" content="https://appassionatocafe.com.br/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin"></noscript>
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="historia">
+<x-include src="partials/sprite.html"></x-include>
+<x-include src="partials/header.html"></x-include>
+
+<main id="conteudo">
+  <!-- Abertura do capítulo (preenchida pelo historia.js conforme o hash) -->
+  <section class="chapter-hero on-dark" aria-labelledby="ch-title" data-ch-hero>
+    <div class="chapter-hero__bg" data-parallax="0.25" data-ch-bg></div>
+    <div class="chapter-hero__veil"></div>
+    <div class="container chapter-hero__content">
+      <span class="chapter-hero__num script" data-ch-num aria-hidden="true"></span>
+      <p class="eyebrow" data-ch-eyebrow></p>
+      <h1 id="ch-title" data-ch-title></h1>
+      <p class="chapter-hero__lead" data-ch-lead></p>
+    </div>
+    <span class="placeholder-note" data-ch-ph></span>
+    <svg class="wave wave--bottom" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true" style="color: var(--cream)"><path d="M0 64V30c120-18 260-30 420-18s300 34 470 30 330-36 550-28v50H0z"/></svg>
+  </section>
+
+  <!-- Leitura + índice de capítulos -->
+  <div class="container reading">
+    <aside class="toc" aria-label="Capítulos">
+      <details class="toc__box" data-toc open>
+        <summary><span class="eyebrow">Capítulos</span><span class="toc__current" data-toc-current></span><svg aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
+        <ol class="toc__list" role="list" data-toc-list></ol>
+      </details>
+    </aside>
+    <article class="prose" data-ch-body aria-labelledby="ch-title"></article>
+  </div>
+
+  <!-- Navegação entre capítulos -->
+  <section class="section chapters-nav bg-paper" aria-labelledby="chnav-title">
+    <div class="container">
+      <div class="chapters-nav__head">
+        <h2 id="chnav-title" class="h3">Da semente à <span class="script">xícara</span></h2>
+        <div class="chapters-nav__btns">
+          <a class="btn btn--outline btn--sm" data-ch-prev href="#"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg>Capítulo anterior</a>
+          <a class="btn btn--brown btn--sm" data-ch-next href="#">Próximo capítulo<svg aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </div>
+      <ol class="ch-cards" role="list" data-ch-cards></ol>
+    </div>
+  </section>
+
+  <!-- Faixa de conversão -->
+  <section class="section taste on-dark bg-brown kraft" aria-labelledby="taste-title">
+    <x-pic name="ramo-h-light" sizes="70vw" alt="" class="taste__deco"></x-pic>
+    <div class="container taste__grid">
+      <div class="taste__text">
+        <p class="eyebrow">Do cafezal para a sua casa</p>
+        <h2 id="taste-title">Prove essa <span class="script">história</span>.</h2>
+        <p class="lead">Café 100% arábica de Garça/SP, entregue em todo o Brasil. No clube, torra fresca a cada envio e até 22% de desconto.</p>
+        <div class="btn-row btn-row--stack">
+          <a class="btn btn--buy btn--lg" href="https://loja.appassionatocafe.com.br/?utm_source=landing&amp;utm_medium=botao&amp;utm_content=historia" target="_blank" rel="noopener" data-track="comprar" data-track-place="historia">Comprar cafés</a>
+          <a class="btn btn--sub btn--lg" href="https://loja.appassionatocafe.com.br/clube?utm_source=landing&amp;utm_medium=botao&amp;utm_content=historia" target="_blank" rel="noopener" data-track="assinar" data-track-place="historia">Assinar o clube</a>
+        </div>
+      </div>
+      <div class="taste__cards" role="list" data-taste></div>
+    </div>
+  </section>
+</main>
+
+<x-include src="partials/footer.html"></x-include>
+<script type="module" src="/src/js/historia.js"></script>
+</body>
+</html>

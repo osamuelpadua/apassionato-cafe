@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema de design — Appassionato Café</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Dosis:wght@400;500;600;700&amp;family=Parisienne&amp;display=swap&amp;subset=latin"></noscript>
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="ds" class="ds">
+<x-include src="partials/sprite.html"></x-include>
+<header class="ds-top bg-brown on-dark">
+  <div class="container ds-top__inner">
+    <a href="index.html" class="ds-top__logo" aria-label="Voltar à landing page"><x-logo variant="horizontal"></x-logo></a>
+    <nav aria-label="Seções do sistema de design">
+      <a href="#cores">Cores</a><a href="#tipografia">Tipografia</a><a href="#espacos">Espaços</a><a href="#movimento">Movimento</a><a href="#componentes">Componentes</a><a href="#logo">Logo</a>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo" class="container ds-main">
+  <section class="ds-intro">
+    <p class="eyebrow">Sistema de design · v1</p>
+    <h1>Appassionato Café</h1>
+    <p class="lead">Tema único, quente e moderno: creme e marrom-café como base, laranja como energia e dourado caramelo como acabamento. Tokens em <code>src/styles/tokens.css</code>.</p>
+  </section>
+
+  <section id="cores" class="ds-sec" aria-labelledby="t-cores">
+    <h2 id="t-cores">Cores</h2>
+    <div class="swatches" data-swatches></div>
+    <h3>Pares de contraste aprovados (WCAG AA)</h3>
+    <div class="pairs" data-pairs></div>
+    <p class="ds-note">Evitar: texto branco sobre o laranja #F07320 (2,9:1) e laranja #F07320 como texto sobre creme (2,6:1). No claro, títulos em script usam o laranja queimado #C84E0C; texto pequeno em laranja usa <code>--orange-text</code> #A5410C (5,7:1).</p>
+  </section>
+
+  <section id="tipografia" class="ds-sec" aria-labelledby="t-tipo">
+    <h2 id="t-tipo">Tipografia</h2>
+    <p class="lead">Três famílias (Google Fonts, <code>display=swap</code>, subconjunto latino). Dosis substitui Jost/Outfit/Josefin por ser a mais próxima do nome “appassionato” no logo (condensada, terminais arredondados).</p>
+    <div class="type-specimen">
+      <div><span class="ds-label">Serifada de alto contraste · Cormorant Garamond 500/600 · títulos e nomes dos cafés</span><p class="serif" style="font-size:var(--fs-hero);line-height:1">Da nossa origem</p><p class="p-card__name" style="font-size:2rem">Moderato Intenso</p></div>
+      <div><span class="ds-label">Sans · Dosis 400–700 · textos, menus, botões, rótulos</span><p style="font-size:var(--fs-lead)">Café 100% arábica da Fazenda Santa Cecília, em Garça/SP, direto para a sua xícara.</p><p class="eyebrow">Rótulo em caixa-alta · 12–13 px · espaçamento 0,22em</p></div>
+      <div><span class="ds-label">Script · Parisienne · 1 a 3 palavras por tela, nunca em texto corrido</span><p class="script" style="font-size:4rem">momento</p></div>
+    </div>
+    <table class="ds-table">
+      <caption class="sr-only">Escala tipográfica fluida</caption>
+      <thead><tr><th>Token</th><th>Faixa</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><code>--fs-hero</code></td><td>40 → 96 px</td><td>Título principal</td></tr>
+        <tr><td><code>--fs-h2</code></td><td>32 → 64 px</td><td>Títulos de seção</td></tr>
+        <tr><td><code>--fs-h3</code></td><td>24 → 36 px</td><td>Subtítulos, nomes no modal</td></tr>
+        <tr><td><code>--fs-lead</code></td><td>18 → 22 px</td><td>Linha de apoio</td></tr>
+        <tr><td><code>--fs-body</code></td><td>16 → 18 px</td><td>Corpo (entrelinha 1,6)</td></tr>
+        <tr><td><code>--fs-label</code></td><td>12 → 13 px</td><td>Eyebrows, rótulos ANTES/DEPOIS</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="espacos" class="ds-sec" aria-labelledby="t-esp">
+    <h2 id="t-esp">Espaçamento, raios e sombras</h2>
+    <div class="ds-row" data-spacing></div>
+    <div class="ds-row">
+      <div class="ds-radius" style="border-radius:var(--r-sm)">12 px<br><code>--r-sm</code></div>
+      <div class="ds-radius" style="border-radius:var(--r-md)">18 px<br><code>--r-md</code></div>
+      <div class="ds-radius" style="border-radius:var(--r-lg)">24 px<br><code>--r-lg</code></div>
+      <div class="ds-radius" style="border-radius:var(--r-xl)">32 px<br><code>--r-xl</code></div>
+      <div class="ds-radius" style="border-radius:var(--r-pill)">pílula<br><code>--r-pill</code></div>
+    </div>
+    <div class="ds-row">
+      <div class="ds-shadow" style="box-shadow:var(--shadow-sm)"><code>--shadow-sm</code></div>
+      <div class="ds-shadow" style="box-shadow:var(--shadow-md)"><code>--shadow-md</code></div>
+      <div class="ds-shadow" style="box-shadow:var(--shadow-lg)"><code>--shadow-lg</code></div>
+      <div class="ds-shadow" style="box-shadow:var(--shadow-glow)"><code>--shadow-glow</code></div>
+    </div>
+    <h3>Pontos de quebra</h3>
+    <table class="ds-table">
+      <thead><tr><th>Faixa</th><th>Largura</th><th>Conteúdo</th></tr></thead>
+      <tbody>
+        <tr><td>Celular</td><td>360–767 px</td><td>Coluna única, margens de 20 px, barra fixa Comprar/Assinar</td></tr>
+        <tr><td>Tablet</td><td>768–1023 px</td><td>2–3 colunas, margens de 32 px</td></tr>
+        <tr><td>Laptop</td><td>1024–1439 px</td><td>Grade completa, margens fluidas</td></tr>
+        <tr><td>Desktop</td><td>1440–1919 px</td><td>Conteúdo até 1440 px, centralizado</td></tr>
+        <tr><td>Tela larga</td><td>1920 px+</td><td>Fundos preenchem tudo; conteúdo até 1600 px</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="movimento" class="ds-sec" aria-labelledby="t-mov">
+    <h2 id="t-mov">Movimento</h2>
+    <p class="lead">Easing padrão <code>cubic-bezier(0.22, 0.61, 0.36, 1)</code>. Nada passa de 800 ms. Só <code>transform</code> e <code>opacity</code>. Com <code>prefers-reduced-motion</code>: sem parallax, sem demonstração do slider, sem chuva de grãos, sem zoom de fundo; revelações viram fade curto.</p>
+    <table class="ds-table">
+      <thead><tr><th>Elemento</th><th>Efeito</th><th>Duração</th></tr></thead>
+      <tbody>
+        <tr><td>Botões</td><td>Hover sobe 2 px com brilho; clique escala 0,98</td><td>150–200 ms</td></tr>
+        <tr><td>Cabeçalho</td><td>Transparente → marrom com desfoque após 80 px</td><td>250 ms</td></tr>
+        <tr><td>Modal</td><td>Fade + subida 24 px; véu marrom 60%</td><td>250 ms</td></tr>
+        <tr><td>Cartão de produto</td><td>Embalagem inclina 3° e sobe 8 px; disco cresce 4%</td><td>300 ms</td></tr>
+        <tr><td>Quiz</td><td>Deslize horizontal; chuva de grãos no resultado</td><td>300 ms / 1 s</td></tr>
+        <tr><td>Revelação</td><td>Fade + subida 24 px, intervalo de 80 ms no grupo, a 15% visível</td><td>600 ms</td></tr>
+        <tr><td>Seletor do clube</td><td>Contador do desconto; grãos da linha do tempo em cascata de 40 ms</td><td>600 ms</td></tr>
+        <tr><td>Parallax</td><td>Fundo 0,15–0,3×; primeiro plano 0,4–0,6× (translate3d)</td><td>rolagem</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="componentes" class="ds-sec" aria-labelledby="t-comp">
+    <h2 id="t-comp">Componentes</h2>
+
+    <h3>Botões</h3>
+    <div class="ds-row ds-row--center">
+      <a class="btn btn--buy" href="#componentes">Comprar cafés</a>
+      <a class="btn btn--sub" href="#componentes">Assinar o clube</a>
+      <a class="btn btn--brown" href="#componentes">Fazer o quiz</a>
+      <a class="btn btn--wa" href="#componentes"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Comprar por WhatsApp</a>
+      <a class="btn btn--outline" href="#componentes">Seguir no Instagram</a>
+      <a class="btn btn--buy btn--sm" href="#componentes">Pequeno (48 px)</a>
+    </div>
+    <div class="ds-row ds-row--center ds-dark on-dark">
+      <a class="btn btn--buy" href="#componentes">Comprar cafés</a>
+      <a class="btn btn--sub" href="#componentes">Assinar agora</a>
+      <a class="btn btn--outline" href="#componentes">Contorno no escuro</a>
+      <a class="link-arrow" href="#componentes" style="color:var(--gold-light)">Link com seta <span aria-hidden="true">→</span></a>
+    </div>
+    <p class="ds-note">Comprar (laranja, texto espresso 6,2:1) e Assinar (dourado, texto espresso 5,9:1) têm o mesmo peso e aparecem juntos. Altura mínima 48 px; 52–56 px nos CTAs principais.</p>
+
+    <h3>Chips e selos</h3>
+    <div class="ds-row ds-row--center">
+      <button class="chip" aria-pressed="true" type="button">Todos</button><button class="chip" aria-pressed="false" type="button">Grãos</button><button class="chip" aria-pressed="false" type="button">Moído</button>
+      <span class="chip chip--note">Avelã</span><span class="chip chip--note">Caramelo</span>
+      <span class="badge">Grãos · 1 kg</span><span class="tbc">confirmar</span>
+    </div>
+    <div class="ds-row ds-row--center ds-dark on-dark">
+      <span class="seal"><svg aria-hidden="true"><use href="#i-check"/></svg>Cancele quando quiser</span>
+      <span class="seal"><svg aria-hidden="true"><use href="#i-check"/></svg>100% Arábica</span>
+    </div>
+
+    <h3>Cartão de produto e modal</h3>
+    <div class="ds-cards" data-ds-cards></div>
+    <p class="ds-note">O cartão inteiro é clicável e abre o modal (desktop: 2 colunas, ~1000 px; celular: bottom sheet com 92% da altura).</p>
+
+    <h3>Slider antes/depois — estados 25%, 50% e 75%</h3>
+    <div class="ds-cmp-row" data-ds-cmps></div>
+
+    <h3>Seletor do clube — 3 planos</h3>
+    <div class="ds-plans" data-ds-plans></div>
+
+    <h3>Acordeão</h3>
+    <div class="accordion" data-accordion style="max-width:760px"></div>
+  </section>
+
+  <section id="logo" class="ds-sec" aria-labelledby="t-logo">
+    <h2 id="t-logo">Logo</h2>
+    <p class="lead">Provisório: vetorizado a partir da embalagem publicada na loja, sem redesenho. <span class="tbc">trocar pelo vetor do PDF do cliente</span> Respiro mínimo de metade da altura do símbolo.</p>
+    <div class="ds-logos">
+      <div class="ds-logo ds-logo--light"><x-logo variant="stacked"></x-logo><span>Fundo claro: nome em marrom</span></div>
+      <div class="ds-logo ds-logo--dark"><x-logo variant="stacked"></x-logo><span>Fundo escuro: nome em branco</span></div>
+      <div class="ds-logo ds-logo--light"><x-logo variant="horizontal"></x-logo><span>Horizontal (cabeçalho)</span></div>
+      <div class="ds-logo ds-logo--dark"><x-symbol class="ds-symbol"></x-symbol><span>Símbolo coração-grão: favicon, loader, marcador, divisor</span></div>
+    </div>
+  </section>
+  <template id="plan-tpl">
+    <div class="plan on-dark" data-club>
+      <div class="segmented" role="radiogroup" aria-label="Frequência de entrega" data-club-seg style="--i: 1">
+        <span class="segmented__thumb" aria-hidden="true"></span>
+        <button type="button" role="radio" aria-checked="false" tabindex="-1"><span class="long">A cada 15 dias</span><span class="short">15 dias</span></button>
+        <button type="button" role="radio" aria-checked="true" tabindex="0"><span class="segmented__flag">Mais escolhido</span><span class="long">A cada 30 dias</span><span class="short">30 dias</span></button>
+        <button type="button" role="radio" aria-checked="false" tabindex="-1"><span class="long">A cada 60 dias</span><span class="short">60 dias</span></button>
+      </div>
+      <div class="plan__card">
+        <div class="plan__top"><p class="plan__off"><span class="plan__num" data-club-num>20</span><span class="plan__pct">%<small>OFF</small></span></p>
+        <div><p class="plan__name serif" data-club-name></p><p class="plan__for" data-club-for></p></div></div>
+        <ul class="plan__benefits" role="list" data-club-benefits></ul>
+        <div class="plan__timeline" tabindex="0" role="group" aria-label="Linha do tempo das entregas em 6 meses"><p class="plan__tl-label"><span data-club-count></span> em 6 meses</p><div class="timeline" data-club-timeline aria-hidden="true"></div>
+        <div class="timeline__months" aria-hidden="true"><span>mês 1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div></div>
+      </div>
+    </div>
+  </template>
+</main>
+
+<x-include src="partials/footer.html"></x-include>
+<script type="module" src="/src/js/design-system.js"></script>
+</body>
+</html>

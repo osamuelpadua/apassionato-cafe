@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Appassionato Café — tokens do sistema de design
+   Tema único (sem modo escuro/claro). Valores conferidos no logo e nas embalagens.
+   ========================================================================== */
+:root {
+  /* Cores de marca */
+  --brown: #3b2218;          /* marrom café: logo, rodapé, CTA final, seções escuras */
+  --brown-deep: #2c1912;     /* rodapé (marrom mais escuro) */
+  --espresso: #24140f;       /* texto principal em fundo claro, véus */
+  --orange: #f07320;         /* laranja Appassionato: símbolo, destaques, botão Comprar */
+  --orange-burnt: #c84e0c;   /* hover, degradê do clube, fundo com texto branco */
+  --orange-burnt-2: #d4560f;
+  --gold: #b98a4b;           /* dourado caramelo: selos, botão Assinar, fios */
+  --gold-light: #e3c07a;
+  --gold-deep: #8a6230;      /* dourado para texto sobre creme (contraste AA) */
+  --cream: #f8f4ec;          /* fundo principal */
+  --cream-2: #f1e9db;        /* creme um tom abaixo (cartões sobre creme, trilhas) */
+  --paper: #fbf9f5;          /* cartões, modal, áreas de leitura */
+  --white: #ffffff;
+  --whatsapp: #167f43;       /* verde WhatsApp ajustado à paleta (5:1 com branco) */
+  --whatsapp-hover: #116636;
+  --orange-text: #a5410c;    /* laranja para texto pequeno sobre creme/papel (AA) */
+
+  /* Texto */
+  --text: var(--espresso);
+  --text-muted: #6b5246;     /* 6,9:1 sobre creme */
+  --text-on-dark: #f8f4ec;
+  --text-on-dark-muted: #d9c9b6;
+
+  /* Tipografia */
+  --font-sans: 'Dosis', 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
+  --font-script: 'Parisienne', 'Allura', cursive;
+
+  --fs-hero: clamp(2.5rem, 1.2rem + 5.4vw, 6rem);        /* 40 → 96 px */
+  --fs-h2: clamp(2rem, 1.3rem + 3vw, 4rem);               /* 32 → 64 px */
+  --fs-h3: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);        /* 24 → 36 px */
+  --fs-h4: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --fs-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem); /* 18 → 22 px */
+  --fs-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);      /* 16 → 18 px */
+  --fs-small: 0.9375rem;
+  --fs-label: clamp(0.75rem, 0.73rem + 0.08vw, 0.8125rem);/* 12 → 13 px */
+  --ls-label: 0.22em;
+  --lh-tight: 1.05;
+  --lh-snug: 1.25;
+  --lh-body: 1.6;
+
+  /* Espaçamento (base 4/8) */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
+  --section-y: clamp(72px, 6vw + 40px, 144px);
+
+  /* Layout */
+  --gutter: 20px;
+  --content-max: 1440px;
+  --reading-max: 720px;
+  --header-h: 72px;
+  --mbar-h: 0px;             /* altura da barra fixa do celular (definida no breakpoint) */
+
+  /* Raios */
+  --r-sm: 12px; --r-md: 18px; --r-lg: 24px; --r-xl: 32px; --r-pill: 999px;
+
+  /* Sombras quentes */
+  --shadow-sm: 0 1px 2px rgba(59, 34, 24, .08), 0 2px 8px rgba(59, 34, 24, .06);
+  --shadow-md: 0 6px 18px rgba(59, 34, 24, .10), 0 2px 6px rgba(59, 34, 24, .06);
+  --shadow-lg: 0 24px 60px rgba(36, 20, 15, .22), 0 8px 20px rgba(36, 20, 15, .12);
+  --shadow-glow: 0 10px 28px rgba(240, 115, 32, .35);
+
+  /* Movimento */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast: 150ms; --t-btn: 200ms; --t-ui: 250ms; --t-card: 300ms; --t-reveal: 600ms; --t-max: 800ms;
+
+  /* Foco */
+  --focus-ring: 0 0 0 3px var(--paper), 0 0 0 6px var(--gold);
+
+  /* Z-index */
+  --z-base: 1; --z-sticky: 20; --z-header: 50; --z-mbar: 60; --z-float: 70; --z-cookie: 80; --z-modal: 100;
+
+  /* Textura kraft (ruído SVG inline, muito sutil) */
+  --kraft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .23 0 0 0 0 .13 0 0 0 0 .09 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
+
+@media (min-width: 768px) { :root { --gutter: 32px; --header-h: 80px; } }
+@media (min-width: 1024px) { :root { --gutter: clamp(32px, 4vw, 64px); } }
+@media (min-width: 1920px) { :root { --content-max: 1600px; } }
+@media (max-width: 767px) { :root { --mbar-h: calc(72px + env(safe-area-inset-bottom, 0px)); } }
