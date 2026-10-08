@@ -80,7 +80,8 @@
 .site-header {
   position: fixed; inset: 0 0 auto; z-index: var(--z-header); height: var(--header-h);
   color: var(--cream);
-  transition: background-color var(--t-ui) var(--ease), box-shadow var(--t-ui) var(--ease);
+  --tuck: calc(var(--header-h) + 40px); /* altura + a sombra do .is-solid, para sumir por inteiro */
+  transition: background-color var(--t-ui) var(--ease), box-shadow var(--t-ui) var(--ease), transform 600ms var(--ease-expo);
 }
 .site-header::before { /* véu de leitura sobre o vídeo, só enquanto transparente */
   content: ""; position: absolute; inset: 0 0 -40px; pointer-events: none;
@@ -89,8 +90,19 @@
 .site-header.is-solid { background: rgba(59, 34, 24, .97); box-shadow: 0 6px 24px rgba(36, 20, 15, .25); }
 .site-header.is-solid::before { opacity: 0; }
 .site-header__inner { position: relative; height: 100%; display: flex; align-items: center; gap: var(--s-5); }
-.site-header__logo { display: block; flex: none; color: var(--white); --logo-name: #fff; padding: 6px 0; }
+.site-header__logo {
+  display: block; flex: none; color: var(--white); --logo-name: #fff; padding: 6px 0;
+  clip-path: inset(-8px); /* folga para o anel de foco; ponto de partida do recolhimento */
+  transition: transform 600ms var(--ease-expo), clip-path 600ms var(--ease-expo);
+}
 .site-header__logo svg { height: clamp(34px, 3vw, 44px); width: auto; }
+/* Recolhido ao descer (desktop, header.js): a barra sobe e o logo desce o mesmo tanto, no mesmo tempo —
+   fica parado na tela enquanto o nome se fecha até sobrar só o símbolo (termina em ~117 de 483; o "a" começa em ~151) */
+@media (min-width: 1024px) {
+  .site-header.is-tucked { transform: translate3d(0, calc(var(--tuck) * -1), 0); }
+  .site-header.is-tucked .site-header__logo { transform: translate3d(0, var(--tuck), 0); clip-path: inset(-8px 71% -8px -8px); }
+}
+@media (prefers-reduced-motion: reduce) { .site-header, .site-header__logo { transition: none; } }
 .site-nav { margin-inline: auto; }
 .site-nav ul { display: flex; gap: clamp(16px, 2.2vw, 40px); list-style: none; margin: 0; padding: 0; }
 .site-nav a {
@@ -410,14 +422,38 @@ body.modal-open .wa-float { opacity: 0; pointer-events: none; }
   transition: background-color var(--t-btn), transform var(--t-btn) var(--ease);
 }
 .vthumb:hover { background: rgba(36, 20, 15, .75); transform: translate3d(0, -2px, 0); }
-.vthumb__img { position: relative; width: 84px; height: 52px; border-radius: 10px; overflow: hidden; flex: none; }
-.vthumb__img img { width: 100%; height: 100%; object-fit: cover; }
-.vthumb__img::after { content: ""; position: absolute; inset: 0; background: rgba(36, 20, 15, .3); }
+/* escurecida pela opacidade sobre o espresso (= véu de 30 %), sem camada por cima: cantos sem fio claro */
+.vthumb__img { position: relative; width: 84px; height: 52px; border-radius: 10px; overflow: hidden; flex: none; background: var(--espresso); }
+/* a foto preenche a moldura inteira: na altura natural (84 × 47) sobrava uma faixa do fundo na base */
+.vthumb__img .pic { position: absolute; inset: 0; }
+.vthumb__img img { width: 100%; height: 100%; object-fit: cover; opacity: .7; }
 .vthumb__play { position: absolute; z-index: 1; left: 50%; top: 50%; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; background: var(--orange); display: grid; place-items: center; }
 .vthumb__play svg { width: 12px; height: 12px; margin-left: 2px; color: var(--espresso); }
 .vthumb__txt { display: grid; line-height: 1.25; }
 .vthumb__txt b { font-size: .9375rem; letter-spacing: .04em; }
 .vthumb__txt span { font-size: .8125rem; color: var(--text-on-dark-muted); }
+
+/* Neon na borda (neon.js): ao passar o mouse, um traço laranja dá UMA volta na borda e some.
+   Três traços com a mesma ponta e caudas de comprimentos diferentes = cometa com rastro.
+   --p = perímetro (px, medido no JS) · --f = fração do perímetro ocupada pela cauda.
+   O traço corre na borda interna: cobre a borda e o fio de luz do vidro logo abaixo dela, que juntos formam a linha visível.
+   Lacuna do tracejado = 2 × o perímetro: a repetição do traço nunca entra na volta (a ponta vai até 1,34 × o perímetro). */
+.neon {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  overflow: visible; pointer-events: none; z-index: 2;
+  filter: drop-shadow(0 0 2px var(--orange)) drop-shadow(0 0 8px rgba(240, 115, 32, .7));
+}
+.neon rect { --l: calc(var(--p, 0px) * var(--f)); fill: none; stroke: var(--orange); stroke-width: 2; stroke-linecap: round; stroke-dasharray: var(--l) calc(var(--p, 0px) * 2); opacity: 0; }
+.neon__trail { --f: .34; stroke-opacity: .3; }
+.neon__mid { --f: .15; stroke-opacity: .75; }
+.neon__head { --f: .045; stroke: #ffc08a; stroke-width: 2.25; }
+.is-neon .neon rect { animation: neon-lap 1.6s cubic-bezier(.45, .1, .35, 1) both; }
+/* a ponta vai de 0 a 1,34 × o perímetro: completa a volta e a cauda mais longa (.34) sai pelo ponto de partida */
+@keyframes neon-lap {
+  0% { stroke-dashoffset: var(--l); opacity: 0; }
+  8%, 82% { opacity: 1; }
+  100% { stroke-dashoffset: calc(var(--l) - var(--p, 0px) * 1.34); opacity: 0; }
+}
 
 /* ---------- Ícones dourados (passos) ---------- */
 .step-icon { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid rgba(227, 192, 122, .6); color: var(--gold-light); }

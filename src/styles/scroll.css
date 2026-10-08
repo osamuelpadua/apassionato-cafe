@@ -23,29 +23,45 @@ main > section:not(.hero) { position: relative; z-index: 1; }
   box-shadow: 0 -28px 60px -18px rgba(13, 7, 5, .55);
 }
 
-/* Linha de progresso de leitura no cabeçalho */
-.site-header::after {
-  content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+/* Linha de progresso de leitura no topo da tela (fora do cabeçalho, que se recolhe no desktop) */
+.read-progress {
+  position: fixed; left: 0; top: 0; z-index: var(--z-header); height: 2px; width: 100%; pointer-events: none;
   background: linear-gradient(90deg, var(--orange), var(--gold-light));
   transform: scaleX(var(--sp, 0)); transform-origin: left; opacity: 0; transition: opacity var(--t-ui) var(--ease);
 }
-.site-header.is-solid::after { opacity: 1; }
+.site-header.is-solid + .read-progress { opacity: 1; }
 
 /* ---------- Jornada: cartões empilhados ---------- */
-.journey { --brown-night: #1a0e0a; background: var(--brown-night); }
+.journey { --brown-night: #1a0e0a; background: var(--brown-night); --r-card: clamp(24px, 3vw, 44px); }
 /* Marrom em degradê diagonal: luz no canto superior esquerdo, escurecendo até quase preto embaixo à direita */
 :root { --brown-diag: radial-gradient(60% 80% at 0% 0%, rgba(122, 70, 40, .35), transparent 70%), linear-gradient(135deg, #4a2a1c 0%, var(--brown) 28%, #2a170f 68%, #170c08 100%); }
 .journey__intro { background: var(--brown-diag); }
 .journey.sheet { margin-top: 0; } /* o hero é fixo: a história já desliza por cima sem sobreposição prévia */
-.journey__intro { position: relative; padding: calc(var(--section-y) + 12px) 0 clamp(64px, 8vw, 120px); overflow: hidden; border-radius: inherit; }
-.journey__intro-deco { position: absolute; left: 50%; top: 52%; width: min(1100px, 120%); transform: translate(-50%, -50%); opacity: .14; pointer-events: none; }
+/* Abertura fixa, como o hero: o 1º cartão desliza POR CIMA dela (os cantos arredondados dele revelam a abertura,
+   não o fundo da seção). Variáveis do scroll.js: --ie = entrada da abertura (0 na base da tela → 1 no topo; os
+   cantos se achatam ao chegar ao topo, senão ficariam presos lá) · --c = coberta pelo 1º cartão · --intro-top = 0,
+   ou negativo se a abertura for mais alta que a tela (fixa pela base, para nada ficar escondido).
+   A base se estende por baixo do 1º cartão (o raio dele): antes de a abertura fixar, os cantos do cartão já
+   mostram a abertura, e não o fundo escuro da seção. */
+.journey__intro {
+  position: sticky; top: var(--intro-top, 0px);
+  padding: calc(var(--section-y) + 12px) 0 calc(clamp(64px, 8vw, 120px) + var(--r-card)); overflow: hidden;
+  margin-bottom: calc(var(--r-card) * -1);
+  --ir: calc(var(--sheet-r) * min(1, (1 - var(--ie, 0)) * 4)); /* cantos inteiros até o último quarto da subida */
+  border-radius: var(--ir) var(--ir) 0 0;
+}
+.journey__intro::after { content: ""; position: absolute; inset: 0; z-index: 1; background: #0d0705; opacity: calc(var(--c, 0) * .72); pointer-events: none; }
+.journey__intro.is-covered { visibility: hidden; }
+.journey__intro-deco { position: absolute; left: 50%; top: calc((100% - var(--r-card)) * .52); width: min(1100px, 120%); transform: translate(-50%, -50%); opacity: .14; pointer-events: none; }
 .journey__intro .section__head { position: relative; margin-bottom: 0; }
+/* coberta pelo 1º cartão: o fundo fica parado e o conteúdo sobe em parallax (ramo mais lento que o título) */
+.journey__intro .section__head { translate: 0 calc(var(--c, 0) * -40vh); }
+.journey__intro-deco { translate: 0 calc(var(--c, 0) * -22vh); }
 .journey__intro h2 { font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem); }
 .journey__track { position: relative; }
 .journey__steps { list-style: none; margin: 0; padding: 0; }
 
 .jstep {
-  --r-card: clamp(24px, 3vw, 44px);
   position: sticky; top: 0; height: 100vh; height: 100svh;
   margin-bottom: 42vh; margin-bottom: 42svh;     /* trecho em que a etapa fica inteira na tela */
 }
@@ -56,16 +72,31 @@ main > section:not(.hero) { position: relative; z-index: 1; }
   position: absolute; inset: 0; overflow: hidden; display: flex; align-items: center; background: var(--espresso);
   border-radius: calc(var(--r-card) * (1 - var(--e, 1))) calc(var(--r-card) * (1 - var(--e, 1))) 0 0;
   box-shadow: 0 -30px 70px -20px rgba(0, 0, 0, calc(.6 * (1 - var(--e, 1))));
-  transform-origin: 50% 35%;
-  transform: translate3d(0, calc(var(--c, 0) * -4vh), 0) scale(calc(1 - var(--c, 0) * .08));
 }
+/* Coberto pelo próximo: parallax em camadas DENTRO do cartão, que fica parado (assim os cantos arredondados do
+   cartão que entra revelam este cartão, nunca o fundo da seção). Foto, texto e ramo sobem em velocidades
+   crescentes (30 %, 45 % e 60 % da do cartão que entra) — profundidade. Nunca passam de 100 %: a sobra que
+   aparece na base fica sempre sob o cartão que entra. `translate` (e não transform) soma com as animações próprias. */
+.jstep__bg { translate: 0 calc(var(--c, 0) * -30vh); }
+.jstep__content { translate: 0 calc(var(--c, 0) * -45vh); }
+.jstep__fg { translate: 0 calc(var(--c, 0) * -60vh); }
 .jstep.is-covered .jstep__card { visibility: hidden; }
-.jstep__bg { position: absolute; inset: 0; transform: scale(calc(1.16 - var(--e, 1) * .16)); transform-origin: 60% 50%; }
-.jstep__bg .pic { position: absolute; inset: 0; }
+/* Véu de leitura como MÁSCARA da foto sobre o espresso do cartão (= a cor do véu): mesmo resultado de uma camada
+   escura por cima, mas sem ela. Com a camada, a borda antisserrilhada (topo e cantos do cartão que entra)
+   escurecia menos que a foto e deixava um fio claro. Máscara = 1 − opacidade do véu; duas camadas multiplicadas. */
+.jstep__bg {
+  position: absolute; inset: 0;
+  --veil-x: linear-gradient(90deg, rgba(0, 0, 0, .12) 0%, rgba(0, 0, 0, .38) 38%, rgba(0, 0, 0, .92) 70%, rgba(0, 0, 0, .75) 100%);
+  --veil-y: linear-gradient(180deg, rgba(0, 0, 0, .6), #000 30%, #000 72%, rgba(0, 0, 0, .35));
+  -webkit-mask-image: var(--veil-x), var(--veil-y); -webkit-mask-composite: source-in;
+  mask-image: var(--veil-x), var(--veil-y); mask-composite: intersect;
+}
+/* a aproximação de entrada fica na foto, não na máscara: o véu não se desloca */
+.jstep__bg .pic { position: absolute; inset: 0; transform: scale(calc(1.16 - var(--e, 1) * .16)); transform-origin: 60% 50%; }
 .jstep__bg img { width: 100%; height: 100%; object-fit: cover; }
 .jstep:nth-child(odd) .jstep__bg img { --zo: 64% 46%; }
 .jstep:nth-child(even) .jstep__bg img { --zo: 40% 55%; }
-.jstep__veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(36, 20, 15, .88) 0%, rgba(36, 20, 15, .62) 38%, rgba(36, 20, 15, .08) 70%, rgba(36, 20, 15, .25) 100%), linear-gradient(180deg, rgba(36, 20, 15, .4), transparent 30%, transparent 72%, rgba(36, 20, 15, .65)); }
+.jstep__veil { position: absolute; inset: 0; } /* só o grão (::after) */
 .jstep__shade { position: absolute; inset: 0; z-index: 4; background: #0d0705; opacity: calc(var(--c, 0) * .72); pointer-events: none; }
 .jstep__fg { position: absolute; right: 4%; bottom: -10%; width: clamp(160px, 18vw, 300px); opacity: .5; pointer-events: none; transform: translate3d(0, calc((1 - var(--e, 1)) * 180px), 0); }
 .jstep__fg--left { right: auto; left: 46%; bottom: -16%; }
@@ -112,8 +143,11 @@ main > section:not(.hero) { position: relative; z-index: 1; }
 
 @media (max-width: 1023px) {
   .jstep { margin-bottom: 30svh; }
-  .jstep__card { align-items: flex-end; padding-bottom: calc(var(--mbar-h) + 32px); transform: translate3d(0, calc(var(--c, 0) * -3vh), 0) scale(calc(1 - var(--c, 0) * .06)); }
-  .jstep__veil { background: linear-gradient(180deg, rgba(36, 20, 15, .3) 0%, rgba(36, 20, 15, .08) 30%, rgba(36, 20, 15, .8) 62%, rgba(36, 20, 15, .96) 100%); }
+  .jstep__card { align-items: flex-end; padding-bottom: calc(var(--mbar-h) + 32px); }
+  .jstep__bg {
+    --veil-y: linear-gradient(180deg, rgba(0, 0, 0, .7) 0%, rgba(0, 0, 0, .92) 30%, rgba(0, 0, 0, .2) 62%, rgba(0, 0, 0, .04) 100%);
+    -webkit-mask-image: var(--veil-y); mask-image: var(--veil-y);
+  }
   .jstep__fg { display: none; }
   .jstep__content { margin-left: 0; max-width: none; }
   .jstep .placeholder-note { top: calc(var(--header-h) + 24px); bottom: auto; left: var(--gutter); right: auto; }
@@ -135,8 +169,37 @@ main > section:not(.hero) { position: relative; z-index: 1; }
   clip-path: inset(0 calc(var(--win) * 4vw) 0 calc(var(--win) * 4vw) round calc(var(--win) * 48px + 2px));
 }
 .final[data-window] { clip-path: inset(0 calc(var(--win) * 4vw) 0 calc(var(--win) * 4vw) round calc(var(--win) * 48px + 2px) calc(var(--win) * 48px + 2px) 0 0); }
-[data-window] > .container, [data-window] .final__photo-inner { transform: translate3d(0, calc(var(--win) * 60px), 0); }
+/* a foto do CTA final não entra aqui: ela já tem parallax limitado à própria sobra (somar os dois expunha a borda) */
+[data-window] > .container { transform: translate3d(0, calc(var(--win) * 60px), 0); }
 .club { background: transparent; }
+
+/* ---------- Instagram: seção presa, fileira desliza na horizontal com a rolagem (scroll.js: instaSlider) ---------- */
+/* --travel = quanto a fileira anda (px) · --ip = progresso 0→1 · --hold = pausa com o cartão final na tela */
+.insta.is-hscroll { --hold: 30svh; height: calc(100svh + var(--travel, 0px) + var(--hold)); padding-block: 0; }
+.insta.is-hscroll .insta__pin {
+  position: sticky; top: 0; height: 100vh; height: 100svh; overflow: clip;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: calc(var(--header-h) + 8px) 0 calc(var(--mbar-h) + 8px);
+}
+/* clip, não hidden: o foco num post fora da tela não rola a faixa por conta própria.
+   --head-h (medido no JS) = altura do título: o post usa toda a altura que sobra na tela presa */
+.insta.is-hscroll .insta__viewport { overflow: clip; --card-h: calc(100svh - var(--header-h) - var(--mbar-h) - var(--head-h, 260px) - 32px); }
+.insta.is-hscroll .insta__track { transform: translate3d(calc(var(--ip, 0) * var(--travel, 0px) * -1), 0, 0); will-change: transform; }
+/* Máscara nas bordas: à direita apaga o 4º post e some no fim (cartão final nítido); à esquerda surge quando os posts saem */
+.insta.is-hscroll .insta__viewport::before, .insta.is-hscroll .insta__viewport::after {
+  content: ""; position: absolute; top: 0; bottom: 0; z-index: 1; pointer-events: none;
+}
+.insta.is-hscroll .insta__viewport::before {
+  left: 0; width: calc(var(--pad) + var(--card) * .3);
+  background: linear-gradient(90deg, var(--paper) 15%, transparent);
+  opacity: clamp(0, var(--ip, 0) * 6, 1);
+}
+.insta.is-hscroll .insta__viewport::after {
+  right: 0; width: calc(var(--pad) + var(--card) * .55);
+  background: linear-gradient(270deg, var(--paper) 10%, transparent);
+  opacity: clamp(0, (1 - var(--ip, 0)) * 6, 1);
+}
+@media (max-width: 767px) { .insta.is-hscroll { --hold: 25svh; } }
 
 /* ---------- Revelações com hierarquia ---------- */
 /* Bloco de título: eyebrow desenha o fio, título sobe por máscara, apoio vem em seguida */
@@ -166,7 +229,7 @@ main > section:not(.hero) { position: relative; z-index: 1; }
 .js [data-reveal="card"].is-in .p-card:hover .p-card__disc { transform: translate(-50%, -50%) scale(1.05); transition-delay: 0ms; }
 .js [data-reveal="card"].is-in .p-card:hover .p-card__img { transform: translate3d(0, -10px, 0) rotate(-3deg); transition-delay: 0ms; }
 
-/* Mosaico do Instagram: janela que se abre e foto que assenta */
+/* Posts do Instagram: janela que se abre e foto que assenta (os de fora da tela abrem ao entrar pela lateral) */
 .js [data-reveal="tile"] a { clip-path: inset(14% 14% 14% 14% round 18px); transition: clip-path 800ms var(--ease-expo); transition-delay: var(--reveal-delay, 0ms); }
 .js [data-reveal="tile"] img { transform: scale(1.18); transition: transform 800ms var(--ease-expo); transition-delay: var(--reveal-delay, 0ms); }
 .js [data-reveal="tile"].is-in a { clip-path: inset(0 0 0 0 round var(--r-md)); }
@@ -187,7 +250,12 @@ main > section:not(.hero) { position: relative; z-index: 1; }
 @media (min-width: 768px) {
   /* os cantos arredondados do fim da página revelam o marrom do rodapé, não o creme do body */
   body[data-page="home"] { background: var(--brown-deep); }
-  body[data-page="home"] main { position: relative; z-index: 1; background: var(--cream); border-radius: 0 0 clamp(28px, 3.2vw, 48px) clamp(28px, 3.2vw, 48px); overflow: clip; box-shadow: 0 30px 60px -20px rgba(13, 7, 5, .5); }
+  /* O creme para antes do fim: a base é coberta só pelo CTA final (escuro, ≥ 520 px). Se o creme fosse até a borda
+     arredondada, ele vazaria pelo antisserrilhado e desenharia um fio claro na curva e na base */
+  body[data-page="home"] main {
+    position: relative; z-index: 1; border-radius: 0 0 clamp(28px, 3.2vw, 48px) clamp(28px, 3.2vw, 48px); overflow: clip; box-shadow: 0 30px 60px -20px rgba(13, 7, 5, .5);
+    background: linear-gradient(var(--cream), var(--cream)) top / 100% calc(100% - 240px) no-repeat;
+  }
   body[data-page="home"] .site-footer { position: sticky; bottom: 0; z-index: 0; }
 }
 .js [data-reveal="tile"] { opacity: 1; transform: none; }
@@ -205,7 +273,7 @@ main > section:not(.hero) { position: relative; z-index: 1; }
    Textura única neutra (scripts/build-grain.mjs), sem mix-blend-mode. --grain = intensidade · --grain-size = escala. */
 :root { --grain-img: url('../assets/img/grain.png'); }
 /* Fundos escuros e fotos: só grãos escuros — o grão branco clareava a imagem e criava um véu leitoso */
-.journey__intro.kraft, .journey__end.kraft, .final.kraft, .taste.kraft, .site-footer.kraft, .club__bg.kraft,
+.journey__intro.kraft, .journey__end.kraft, .final.kraft, .taste.kraft, .site-footer.kraft, .club__bg.kraft, .insta__end.kraft,
 .hero__cmp::after, .jstep__veil::after, .chapter-hero__veil::before { --grain-img: url('../assets/img/grain-dark.png'); }
 
 /* Intensidades: sutis — perceptível de perto, invisível à distância de leitura */
@@ -214,6 +282,7 @@ main > section:not(.hero) { position: relative; z-index: 1; }
 .journey__intro.kraft, .journey__end.kraft, .final.kraft, .taste.kraft { --grain: .5; --grain-size: 128px; }
 .site-footer.kraft { --grain: .45; --grain-size: 128px; }
 .club__bg.kraft { --grain: .45; --grain-size: 128px; }
+.insta__end.kraft { --grain: .4; --grain-size: 128px; }
 
 /* Fotos: grão fino e leve (película), logo acima da foto e ABAIXO da interface — vidro, alça e textos
    ficam lisos. Na etapa, o grão mora no véu (que não muda de escala por conta própria). */

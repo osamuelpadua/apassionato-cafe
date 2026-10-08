@@ -8,7 +8,7 @@ const read = (p) => readFileSync(resolve(root, p), 'utf8');
 /**
  * Pequeno "templating" em tempo de build para as páginas estáticas:
  *  <x-include src="partials/x.html"></x-include>  → conteúdo do parcial (recursivo)
- *  <x-logo variant="horizontal|stacked" class=".."></x-logo> → SVG inline do logo (cores via CSS vars)
+ *  <x-logo class=".."></x-logo> → SVG inline do logo horizontal oficial (cores via CSS vars)
  *  <x-symbol class=".."></x-symbol> → símbolo coração-grão inline
  *  <x-pic name="hero-antes" sizes="100vw" alt=".." class=".." loading="lazy|eager" fetchpriority="high"></x-pic>
  *      → <picture> com AVIF + WebP, srcset e width/height (evita CLS)
@@ -49,7 +49,7 @@ function brandHtml() {
         const s = sizes();
         html = expand(html);
         // Logo e símbolo declarados uma vez no sprite (<x-brand-defs>) e reutilizados com <use>
-        const brand = { 'logo-horizontal': 'logo-horizontal.svg', 'logo-stacked': 'logo-stacked.svg', 'i-heart': 'symbol.svg' };
+        const brand = { 'logo-horizontal': 'logo-horizontal.svg', 'i-heart': 'symbol.svg' };
         const vb = {};
         const defs = Object.entries(brand).map(([id, file]) => {
           const svg = read(`src/assets/svg/${file}`);
@@ -61,7 +61,7 @@ function brandHtml() {
         // O <symbol> já mapeia o próprio viewBox; o <svg> externo usa só largura × altura a partir de 0 0
         const outerVb = (id) => { const [, , w, h] = vb[id].split(/\s+/); return `0 0 ${w} ${h}`; };
         const useSvg = (id, cls) => `<svg class="${cls}" viewBox="${outerVb(id)}" aria-hidden="true" focusable="false"><use href="#${id}"/></svg>`;
-        html = html.replace(/<x-logo([^>]*)><\/x-logo>/g, (_, at) => { const a = attrs(at); return useSvg(`logo-${a.variant || 'horizontal'}`, a.class || ''); });
+        html = html.replace(/<x-logo([^>]*)><\/x-logo>/g, (_, at) => useSvg('logo-horizontal', attrs(at).class || ''));
         html = html.replace(/<x-symbol([^>]*)><\/x-symbol>/g, (_, at) => useSvg('i-heart', attrs(at).class || 'heart-bean'));
         html = html.replace(/<x-pic([^>]*)><\/x-pic>/g, (_, at) => pic(attrs(at), s));
         return html;

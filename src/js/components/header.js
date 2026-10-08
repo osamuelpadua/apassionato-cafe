@@ -1,4 +1,4 @@
-// Cabeçalho fixo (transparente → marrom com desfoque após 80 px), menu do celular,
+// Cabeçalho fixo (transparente → marrom com desfoque após 80 px; no desktop recolhe ao símbolo ao descer), menu do celular,
 // barra fixa Comprar/Assinar (aparece quando os CTAs da primeira dobra saem da tela) e item ativo do menu.
 import { $, $$, local } from '../utils.js';
 import { smooth } from './smooth.js';
@@ -15,13 +15,38 @@ export function initHeader() {
 
   // Fundo sólido: sempre fora da primeira dobra da home
   const solidAlways = page !== 'home' && !document.querySelector('.chapter-hero');
+
+  // Recolher ao descer (só desktop com mouse): a barra sobe e fica o símbolo. Volta ao subir alguns px,
+  // com o mouse sobre o símbolo (some de novo ao sair do cabeçalho) ou com o foco do teclado dentro dele.
+  const desk = window.matchMedia('(min-width: 1024px) and (hover: hover)');
+  const TUCK_FROM = 160; // perto do topo, sempre visível
+  const TUCK_RUN = 6;    // px descendo para recolher
+  const SHOW_RUN = 24;   // px subindo para reaparecer
+  let lastY = window.scrollY, run = 0, tucked = false, hover = false, focus = false;
+  const applyTuck = () => header.classList.toggle('is-tucked', desk.matches && tucked && !hover && !focus);
+
   let ticking = false;
   const onScroll = () => {
     ticking = false;
-    header.classList.toggle('is-solid', solidAlways || window.scrollY > 80);
+    const y = window.scrollY;
+    header.classList.toggle('is-solid', solidAlways || y > 80);
+    const dy = y - lastY;
+    lastY = y;
+    if (dy && (dy > 0) !== (run > 0)) run = 0; // trocou de sentido: recomeça a contagem
+    run += dy;
+    if (y < TUCK_FROM) tucked = false;
+    else if (run > TUCK_RUN) tucked = true;
+    else if (run < -SHOW_RUN) tucked = false;
+    applyTuck();
   };
   onScroll();
   window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  // recolhido, só o símbolo recebe o mouse: entrar nele conta como entrar no cabeçalho
+  header.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hover = true; applyTuck(); } });
+  header.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hover = false; applyTuck(); } });
+  header.addEventListener('focusin', (e) => { focus = e.target.matches(':focus-visible'); applyTuck(); });
+  header.addEventListener('focusout', (e) => { if (!header.contains(e.relatedTarget)) { focus = false; applyTuck(); } });
+  desk.addEventListener('change', applyTuck);
 
   // Menu do celular
   const menu = $('[data-menu]');

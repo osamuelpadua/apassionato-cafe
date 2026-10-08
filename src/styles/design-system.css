@@ -48,8 +48,8 @@ code { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-siz
 .ds-plans .plan__top { grid-template-columns: 1fr; gap: 12px; }
 .ds-logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
 .ds-logo { display: grid; place-items: center; gap: 16px; padding: 40px 24px 20px; border-radius: var(--r-lg); text-align: center; font-size: .875rem; }
-.ds-logo svg { height: 120px; width: auto; max-width: 100%; }
+.ds-logo svg { width: 100%; max-width: 300px; height: auto; }
 .ds-logo--light { background: var(--cream-2); color: var(--brown); --logo-name: var(--brown); }
 .ds-logo--dark { background: var(--brown); color: var(--cream); --logo-name: #fff; }
-.ds-logo .ds-symbol { color: var(--orange); height: 96px; }
+.ds-logo .ds-symbol { color: var(--orange); width: auto; height: 96px; }
 @media (max-width: 1023px) { .ds-cmp-row, .ds-plans { grid-template-columns: 1fr; } }

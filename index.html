@@ -304,12 +304,10 @@
         <div class="cmp club__cmp" data-ambient data-compare data-demo="view" data-label="o pote vazio e a caixa chegando">
           <div class="cmp__layer cmp__layer--before" aria-hidden="true">
             <div class="cmp__media"><x-pic name="clube-antes" sizes="(min-width: 1024px) 50vw, 100vw" alt=""></x-pic></div>
-            <div class="club__cmp-veil"></div>
             <p class="club__cmp-caption club__cmp-caption--before"><span class="club__cmp-k">Sem o clube</span><span class="serif">O café acabou.</span></p>
           </div>
           <div class="cmp__layer cmp__layer--after" aria-hidden="true">
             <div class="cmp__media"><x-pic name="clube-depois" sizes="(min-width: 1024px) 50vw, 100vw" alt=""></x-pic></div>
-            <div class="club__cmp-veil"></div>
             <p class="club__cmp-caption club__cmp-caption--after"><span class="club__cmp-k">Com o clube</span><span class="serif">Já está <span class="accent">a caminho</span>.</span></p>
           </div>
           <div class="cmp__line" aria-hidden="true"></div>
@@ -405,25 +403,34 @@
   </section>
 
   <!-- ============ 7. INSTAGRAM ============ -->
-  <section class="section bg-paper insta kraft" id="instagram" aria-labelledby="insta-title">
-    <div class="container">
-      <div class="insta__head">
-        <div class="section__head" data-reveal>
+  <!-- Em telas com movimento, a seção fica presa e a rolagem vertical desliza a fileira (scroll.js: instaSlider) -->
+  <section class="section bg-paper insta kraft" id="instagram" aria-labelledby="insta-title" data-hscroll>
+    <div class="insta__pin">
+      <div class="container">
+        <div class="section__head insta__head" data-reveal>
           <p class="eyebrow">Instagram</p>
           <h2 id="insta-title">Acompanhe o nosso <span class="accent">dia a dia</span></h2>
           <p class="lead"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener" class="insta__handle">@appassionatocafe</a></p>
         </div>
-        <a class="btn btn--outline" href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener" data-track="instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg>Seguir no Instagram</a>
       </div>
-      <ul class="insta__grid" role="list">
-        <li data-reveal="tile" style="--reveal-delay:0ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-1" sizes="(min-width: 768px) 33vw, 70vw" alt="Cerejas de café maduras com gotas de orvalho"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li data-reveal="tile" style="--reveal-delay:110ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-2" sizes="(min-width: 768px) 33vw, 70vw" alt="Grãos de café torrados com uma colher de cerâmica"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li data-reveal="tile" style="--reveal-delay:220ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-3" sizes="(min-width: 768px) 33vw, 70vw" alt="Café sendo coado em um filtro de vidro"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li data-reveal="tile" style="--reveal-delay:90ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-4" sizes="(min-width: 768px) 33vw, 70vw" alt="Xícara de café com arte de coração no leite, sobre mesa de madeira clara"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li data-reveal="tile" style="--reveal-delay:200ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-5" sizes="(min-width: 768px) 33vw, 70vw" alt="Embalagem Moderato Intenso sobre mesa de madeira com laranjas e grãos"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-        <li data-reveal="tile" style="--reveal-delay:310ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-6" sizes="(min-width: 768px) 33vw, 70vw" alt="Mão segurando cerejas de café recém-colhidas"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-      </ul>
-      <p class="insta__note review-only">Imagens provisórias, atualizadas manualmente <span class="tbc">trocar por posts reais</span></p>
+      <div class="insta__viewport">
+        <ul class="insta__track" role="list" data-hscroll-track>
+          <li data-reveal="tile" style="--reveal-delay:0ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-1" sizes="(min-width: 768px) 28vw, 74vw" alt="Cerejas de café maduras com gotas de orvalho"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal="tile" style="--reveal-delay:110ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-2" sizes="(min-width: 768px) 28vw, 74vw" alt="Grãos de café torrados com uma colher de cerâmica"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal="tile" style="--reveal-delay:220ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-3" sizes="(min-width: 768px) 28vw, 74vw" alt="Café sendo coado em um filtro de vidro"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal="tile" style="--reveal-delay:330ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-4" sizes="(min-width: 768px) 28vw, 74vw" alt="Xícara de café com arte de coração no leite, sobre mesa de madeira clara"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal="tile" style="--reveal-delay:0ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-5" sizes="(min-width: 768px) 28vw, 74vw" alt="Embalagem Moderato Intenso sobre mesa de madeira com laranjas e grãos"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal="tile" style="--reveal-delay:0ms"><a href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener"><x-pic name="insta-6" sizes="(min-width: 768px) 28vw, 74vw" alt="Mão segurando cerejas de café recém-colhidas"></x-pic><span class="insta__veil"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li class="insta__end bg-brown on-dark kraft">
+            <svg class="insta__end-icon" aria-hidden="true"><use href="#i-instagram"/></svg>
+            <p class="insta__end-handle">@appassionatocafe</p>
+            <a class="btn btn--outline" href="https://www.instagram.com/appassionatocafe/" target="_blank" rel="noopener" data-track="instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg>Seguir no Instagram</a>
+          </li>
+        </ul>
+      </div>
+      <div class="container">
+        <p class="insta__note review-only">Imagens provisórias, atualizadas manualmente <span class="tbc">trocar por posts reais</span></p>
+      </div>
     </div>
   </section>
 

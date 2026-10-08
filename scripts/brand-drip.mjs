@@ -2,7 +2,7 @@
 import sharp from 'sharp';
 import { readFile } from 'node:fs/promises';
 const src = '_ref/cutout/drip-coffee.png';
-const logoSvg = (await readFile('src/assets/svg/logo-stacked.svg', 'utf8')).replace('<style>', '<style>svg{color:#ffffff}');
+const logoSvg = (await readFile('src/assets/svg/logo-horizontal.svg', 'utf8')).replace('var(--logo-name,currentColor)', '#fff');
 const logo = await sharp(Buffer.from(logoSvg), { density: 300 }).resize({ width: 300 }).png().toBuffer();
 const lm = await sharp(logo).metadata();
 const cx = 480, top = 330;

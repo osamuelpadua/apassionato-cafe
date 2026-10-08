@@ -1,6 +1,7 @@
 /* ==========================================================================
    Primeira dobra — composição editorial, entrada coreografada e saída guiada pela rolagem
    --hx (0 → 1) é definido pelo scroll.js: 0 = hero inteiro na tela, 1 = coberto pela história.
+   Fotos em movimento nunca diminuem nem andam além da própria sobra: as bordas ficam sempre fora da moldura.
    ========================================================================== */
 .hero {
   --hero-fs: clamp(2.5rem, .9rem + 4.4vw, 5.75rem);
@@ -16,7 +17,9 @@
 .hero.is-gone { visibility: hidden; }
 .hero.is-gone .cmp__media img { animation-play-state: paused; }
 
-.hero__stage { position: absolute; inset: 0; transform-origin: 50% 65%; transform: scale(calc(1 - var(--hx, 0) * .07)); }
+/* Profundidade na saída: a imagem aproxima e escurece. Nunca reduz (scale < 1): reduzir expunha o fundo
+   nas laterais e no topo e deixava as bordas da foto em frações de pixel, com um fio claro serrilhado */
+.hero__stage { position: absolute; inset: 0; transform-origin: 50% 65%; transform: scale(calc(1 + var(--hx, 0) * .06)); }
 .hero__shade { position: absolute; inset: 0; z-index: 9; background: #0d0705; opacity: calc(var(--hx, 0) * .78); pointer-events: none; }
 .hero__cmp { position: absolute; inset: 0; --tag-top: calc(var(--header-h) + 22px); }
 .hero__img img { object-position: 50% 50%; }

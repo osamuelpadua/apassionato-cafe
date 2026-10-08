@@ -12,6 +12,7 @@ import { initShowcase } from './components/showcase.js';
 import { initProductModal } from './components/productModal.js';
 import { initClubSelector } from './components/clubSelector.js';
 import { renderTestimonials, initCarousel, renderFaq, initAccordion } from './components/widgets.js';
+import { initNeon } from './components/neon.js';
 
 // Primeira dobra: imediato
 initAnalytics();
@@ -34,6 +35,7 @@ const below = () => {
   const acc = $('[data-accordion]');
   if (acc) initAccordion(acc);
   initReveal();
+  initNeon();
   if (location.hash && !location.hash.startsWith('#cafe-')) document.querySelector(location.hash)?.scrollIntoView();
 };
 if (location.hash || !('requestIdleCallback' in window)) below();

@@ -16,7 +16,7 @@
 <x-include src="partials/sprite.html"></x-include>
 <header class="ds-top bg-brown on-dark">
   <div class="container ds-top__inner">
-    <a href="index.html" class="ds-top__logo" aria-label="Voltar à landing page"><x-logo variant="horizontal"></x-logo></a>
+    <a href="index.html" class="ds-top__logo" aria-label="Voltar à landing page"><x-logo></x-logo></a>
     <nav aria-label="Seções do sistema de design">
       <a href="#cores">Cores</a><a href="#tipografia">Tipografia</a><a href="#espacos">Espaços</a><a href="#movimento">Movimento</a><a href="#componentes">Componentes</a><a href="#logo">Logo</a>
     </nav>
@@ -154,11 +154,10 @@
 
   <section id="logo" class="ds-sec" aria-labelledby="t-logo">
     <h2 id="t-logo">Logo</h2>
-    <p class="lead">Provisório: vetorizado a partir da embalagem publicada na loja, sem redesenho. <span class="tbc">trocar pelo vetor do PDF do cliente</span> Respiro mínimo de metade da altura do símbolo.</p>
+    <p class="lead">Vetor oficial, horizontal. Respiro mínimo de metade da altura do símbolo.</p>
     <div class="ds-logos">
-      <div class="ds-logo ds-logo--light"><x-logo variant="stacked"></x-logo><span>Fundo claro: nome em marrom</span></div>
-      <div class="ds-logo ds-logo--dark"><x-logo variant="stacked"></x-logo><span>Fundo escuro: nome em branco</span></div>
-      <div class="ds-logo ds-logo--light"><x-logo variant="horizontal"></x-logo><span>Horizontal (cabeçalho)</span></div>
+      <div class="ds-logo ds-logo--light"><x-logo></x-logo><span>Fundo claro: nome em marrom</span></div>
+      <div class="ds-logo ds-logo--dark"><x-logo></x-logo><span>Fundo escuro: nome em branco (cabeçalho, rodapé)</span></div>
       <div class="ds-logo ds-logo--dark"><x-symbol class="ds-symbol"></x-symbol><span>Símbolo coração-grão: favicon, loader, marcador, divisor</span></div>
     </div>
   </section>

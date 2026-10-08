@@ -25,16 +25,16 @@ src/js/          main.js (home) · historia.js · design-system.js · utils.js
 src/js/components/  header · compareSlider · motion (reveal + parallax) · journey · quiz · showcase
                     productModal · clubSelector · widgets (carrossel, FAQ) · analytics
 src/js/data/     products.js · content.js (depoimentos, FAQ, planos) · chapters.js · links.js · image-sizes.json
-src/assets/svg/  logo-horizontal.svg · logo-stacked.svg · symbol.svg (gerados por scripts/build-logo.mjs)
+src/assets/svg/  logo-horizontal.svg (vetor oficial do cliente) · symbol.svg (o símbolo recortado dele)
 public/img/      imagens finais AVIF + WebP em várias larguras (geradas por scripts/optimize-images.mjs)
-scripts/         fetch-store-assets · build-logo · brand-drip · optimize-images · verify · shot · shot-el · overflow
+scripts/         fetch-store-assets · brand-drip · optimize-images · verify · shot · shot-el · overflow
 _ref/            originais baixados da loja e gerados no Magnific (fora do build)
 ```
 
 O `vite.config.js` tem um plugin de HTML que expande, no build:
 - `<x-include src>`: parciais compartilhados (cabeçalho e rodapé iguais nas páginas);
 - `<x-pic name sizes alt>`: vira um `<picture>` com AVIF + WebP, `srcset` e `width`/`height` (evita CLS);
-- `<x-logo variant>` e `<x-symbol>`: o logo e o símbolo são declarados uma vez no sprite e reutilizados com `<use>`. A cor do nome vem de `--logo-name` e a do símbolo, do "ppa" e do "Café" vem de `--logo-mark`.
+- `<x-logo>` e `<x-symbol>`: o logo e o símbolo são declarados uma vez no sprite e reutilizados com `<use>`. A cor do nome vem de `--logo-name` e a do símbolo e do "ppa" vem de `--logo-mark` (padrão #F37116, o laranja do vetor oficial).
 
 ## Pontos de quebra e medidas
 
@@ -54,7 +54,7 @@ O `vite.config.js` tem um plugin de HTML que expande, no build:
 
 | Componente | Arquivo | Comportamento |
 |---|---|---|
-| Cabeçalho | `header.js` | Transparente até 80 px de rolagem, depois marrom com desfoque. Item ativo por IntersectionObserver. Menu do celular em gaveta com foco preso e ESC. Na home, `index.html#x` vira `#x`. |
+| Cabeçalho | `header.js` | Transparente até 80 px de rolagem, depois marrom com desfoque. No desktop (≥ 1024 px, com mouse), recolhe ao descer: a barra sobe e fica só o símbolo; volta ao subir 24 px, com o mouse sobre o símbolo (some ao sair do cabeçalho) ou com o foco do teclado. Item ativo por IntersectionObserver. Menu do celular em gaveta com foco preso e ESC. Na home, `index.html#x` vira `#x`. |
 | Barra fixa (celular) | `header.js` | Aparece quando os CTAs da primeira dobra saem da tela; respeita `safe-area-inset-bottom`; o WhatsApp sobe junto. |
 | Slider antes/depois | `compareSlider.js` | `clip-path` controlado por `--pos`. Arraste pela alça (mouse em qualquer ponto no desktop; só a alça no celular, o resto mantém `pan-y`), clique na trilha, setas ±5 %, Home/End, `role="slider"`. Demonstração 50→30→70→50 em 2,5 s: no hero 1,2 s após carregar, uma vez por sessão; no clube quando 60 % do bloco está visível. Aceita `<video>` nas camadas (pausa fora da tela, botão de pausa). |
 | Jornada | `journey.js`, `motion.js` | 5 etapas de 140svh com tela fixa de 100svh (abaixo do limite de 1,5 tela). Parallax: fundo a 0,18×, ramos a 0,5×, só com `translate3d`. Pontos-grão fixos à direita; no celular, barra de progresso fina, cartões sem tela fixa e 1 camada de parallax. |
@@ -100,7 +100,7 @@ A mensagem do WhatsApp é montada a partir de `WA_MSG.product(nomeCompleto, vari
 ## Decisões que se afastaram do briefing
 
 - **Vídeos substituídos por fotos:** sem vídeos do cliente, o hero, a jornada e o clube usam fotos com zoom lento (só `transform`, iniciado depois do carregamento e pausável); o componente já aceita `<video>` sem mudança de código.
-- **Logo vetorizado da embalagem:** o PDF do logo não estava disponível, então o logo foi vetorizado da foto da embalagem Especial publicada na loja, sem redesenho, e está marcado para troca pelo vetor oficial.
+- **Logo:** o site usa o vetor oficial horizontal do cliente (`logo-horizontal.svg`) em todos os lugares, inclusive no rodapé. A versão empilhada com "Café", vetorizada antes a partir da foto da embalagem, foi retirada. O símbolo isolado e o favicon são recortados do mesmo vetor.
 - **Fontes:** Inter Tight (títulos em peso 600; palavras de destaque em itálico 500, laranja, com 7° de inclinação extra) e Manrope (texto e interface). A combinação anterior, Playfair Display + Montserrat, segue disponível para comparação com `?tipo=classica` na URL (`src/styles/type.css`).
 - **Grão:** duas texturas geradas por `scripts/build-grain.mjs`. A neutra (`grain.png`) fica nos fundos claros; a só de grãos escuros (`grain-dark.png`) fica nos fundos escuros e nas fotos, para não clarear a imagem. A intensidade é ajustada por bloco com `--grain` (`src/styles/scroll.css`). Nas fotos, o grão fica abaixo da interface.
 - **Vidro:** desfoque real (`backdrop-filter`) só no cabeçalho e em elementos pequenos sobre fotos (`src/styles/glass.css`). Os painéis grandes do clube usam vidro fosco com tinta quase opaca, sem desfoque: é mais leve na rolagem e o grão do fundo não atravessa.
@@ -119,15 +119,20 @@ Os selos [confirmar]/[exemplo] e as notas de mídia provisória ficam ocultos no
 ## Movimento de rolagem
 
 - Rolagem suave com Lenis (só mouse/trackpad; desligada no toque e com reduced-motion).
-- `scroll.js`: um laço por quadro que escreve variáveis CSS — `--hx` (hero fixo que recua e escurece enquanto a história sobe por cima), `--e`/`--c` (etapas da jornada empilhadas como cartões), `--w` (clube e CTA final abrem de um bloco recuado até a largura total), `--sp` (linha de progresso no cabeçalho).
-- Revelações com hierarquia (`motion.js`): títulos sobem por máscara, cartões de produto montam disco e embalagem em tempos próprios, mosaico do Instagram abre em janela.
+- `scroll.js`: um laço por quadro que escreve variáveis CSS — `--hx` (hero fixo que aproxima e escurece enquanto a história sobe por cima), `--e`/`--c` (etapas da jornada empilhadas como cartões; a coberta só sobe e escurece. A abertura "Da semente à xícara" também fica fixa e escurece enquanto o 1º cartão desliza por cima; a base dela se estende sob o raio do cartão, para os cantos dele nunca mostrarem o fundo da seção), `--w` (clube e CTA final abrem de um bloco recuado até a largura total), `--ip` (Instagram, abaixo), `--sp` (linha de progresso no topo da tela, `[data-progress]`).
+- Instagram (`instaSlider` em `scroll.js`): a seção fica presa na tela e a rolagem vertical desliza os posts numa fileira só. Começa com 3 posts inteiros e o 4º apagado por um degradê no computador, e com 1 post e parte do próximo no celular. Termina num cartão com o botão "Seguir no Instagram", e depois de uma pausa curta a página volta a rolar normalmente. A altura da seção é a da tela, mais o percurso da fileira (`--travel`, medido no JS), mais a pausa (`--hold`). O tamanho do post é limitado pela altura que sobra abaixo do título (`--head-h`). Com reduced-motion ou sem JS, a fileira vira uma faixa que se arrasta na horizontal.
+- Revelações com hierarquia (`motion.js`): títulos sobem por máscara, cartões de produto montam disco e embalagem em tempos próprios, posts do Instagram abrem em janela ao entrar na tela.
 - Zoom-in lento (30 s) nas imagens que serão vídeo: hero, clube, etapas da jornada e abertura/player da página de história.
+- **Bordas das fotos (regras para não voltar margem nem fio claro):**
+  - foto em movimento nunca diminui dentro da moldura (`scale` < 1 expõe o fundo); para dar profundidade, aproxime (`scale` ≥ 1) e escureça;
+  - parallax só anda dentro da sobra da camada (ex.: `inset: -10% 0`): o `scroll.js` limita o deslocamento a ela;
+  - véu escuro sobre foto em moldura recortada (cantos arredondados, janela, folha que sobe) é feito como **máscara da foto** sobre um fundo na cor do véu, nunca como camada por cima: no antisserrilhado da borda a camada cobre menos que a foto e deixa um fio claro. Ex.: `.jstep__bg`, `.final__photo`, `.club__cmp .cmp__media`, `.player__poster .pic`, `.ch-card__img`;
+  - um fundo claro atrás de um recorte arredondado não pode chegar até a borda (ex.: o creme do `main` para antes do CTA final), senão vaza como fio claro na curva.
 
 ## Pendências visíveis no protótipo
 
 Os selos `confirmar` / `exemplo` aparecem na tela. Itens principais:
 - vídeos e fotos reais;
-- vetor do logo;
 - embalagem e link do Drip Coffee;
 - torra do Delicato moído;
 - compatibilidade das cápsulas;

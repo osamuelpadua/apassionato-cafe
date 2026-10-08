@@ -3,7 +3,7 @@
 <header class="site-header" data-header>
   <div class="container site-header__inner">
     <a class="site-header__logo" href="index.html#topo" aria-label="Appassionato Café — início">
-      <x-logo variant="horizontal"></x-logo>
+      <x-logo></x-logo>
     </a>
     <nav class="site-nav" aria-label="Principal">
       <ul>
@@ -23,10 +23,11 @@
     </button>
   </div>
 </header>
+<div class="read-progress" aria-hidden="true" data-progress></div>
 
 <div class="mobile-menu on-dark" id="menu-celular" role="dialog" aria-modal="true" aria-label="Menu" data-menu>
   <div class="mobile-menu__top">
-    <x-logo variant="horizontal" class="logo"></x-logo>
+    <x-logo class="logo"></x-logo>
     <button class="menu-toggle" type="button" data-menu-close style="display:inline-flex">
       <svg aria-hidden="true"><use href="#i-close"/></svg><span class="sr-only">Fechar menu</span>
     </button>
